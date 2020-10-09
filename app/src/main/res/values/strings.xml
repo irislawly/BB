@@ -1,3 +1,40 @@
 <resources>
-    <string name="app_name">BB</string>
+    <string name="app_name">Booking&amp;Bulking</string>
+
+    <!-- Gym information -->
+    <string name="gym_info_title">Gym Information</string>
+    <string name="info_covid">Covid Hours:</string>
+    <string name="info_phone">Phone number:</string>
+    <string name="info_address">Address:</string>
+    <string name="info_capacity">Max Capacity:</string>
+    <string-array name="weekdays">
+        <item>Mon</item>
+        <item>Tues</item>
+        <item>Wed</item>
+        <item>Thurs</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+    <string name="info_hourMon">Mon:</string>
+    <string name="info_hourTues">Tues:</string>
+    <string name="info_hourWed">Wed:</string>
+    <string name="info_hourThurs">Thurs:</string>
+    <string name="info_hourFri">Fri:</string>
+    <string name="info_hourSat">Sat:</string>
+    <string name="info_hourSun">Sun:</string>
+
+
+    <!-- Booking information -->
+    <string name="booking_title">Current Bookings</string>
+    <string name="booking_equip">Equipment:</string>
+    <string name="booking_date">Date:</string>
+    <string name="booking_time">Time slot:</string>
+    <string name="booking_add">Add</string>
+    <string name="booking_edit">Edit</string>
+    <string name="booking_delete">Delete</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
