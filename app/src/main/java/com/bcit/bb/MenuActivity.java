@@ -23,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }*/
 
-    public void onInfoClick(View view) {
+    public void onGymInfoClick(View view) {
         Intent intent = new Intent(this, information.class);
         startActivity(intent);
     }

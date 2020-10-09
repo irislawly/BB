@@ -37,8 +37,7 @@
         android:text="@string/gym_safety_policy"
         android:layout_below="@id/booking_btn"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="5dp"
-        android:onClick="onPolicyClick"/>
+        android:layout_marginBottom="5dp"/>
 
     <Button
         android:id="@+id/gym_info_btn"
@@ -59,6 +58,5 @@
         android:text="@string/your_acc"
         android:layout_centerInParent="true"
         android:layout_below="@id/gym_info_btn"
-        android:layout_marginBottom="5dp"
-        android:onClick="onAccClick"/>
+        android:layout_marginBottom="5dp"/>
 </RelativeLayout>
