@@ -24,7 +24,8 @@
         android:layout_marginEnd="31dp"
         android:text="@string/booking_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onAddBookingClick"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="220dp"
-            android:text="@string/booking_edit" />
+            android:text="@string/booking_edit"/>
 
         <Button
             android:id="@+id/button3"
@@ -72,7 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="220dp"
             android:layout_marginTop="50dp"
-            android:text="@string/booking_delete" />
+            android:text="@string/booking_delete"
+            android:onClick="onDeleteBookingClick"/>
     </androidx.cardview.widget.CardView>
 
 

@@ -14,5 +14,4 @@ public class AddNewBooking extends AppCompatActivity {
 
     }
 
-
 }

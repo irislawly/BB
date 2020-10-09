@@ -14,4 +14,19 @@ public class bookings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings);
     }
+
+    public void onAddBookingClick(View view) {
+        Intent intent = new Intent(this, AddNewBooking.class);
+        startActivity(intent);
+    }
+
+    /*public void onEditBookingClick(View view) {
+        Intent intent = new Intent(this, AddNewBooking.class);
+        startActivity(intent);
+    }*/
+
+    public void onDeleteBookingClick(View view) {
+        Intent intent = new Intent(this, Delete.class);
+        startActivity(intent);
+    }
 }
