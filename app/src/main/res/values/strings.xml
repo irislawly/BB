@@ -55,4 +55,7 @@
     <string name="new_booking_update">Update</string>
     <string name="new_booking_cancel">Cancel</string>
 
+    <string name="edit_booking_update">Update</string>
+    <string name="edit_booking_cancel">Cancel</string>
+
 </resources>

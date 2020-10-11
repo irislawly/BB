@@ -19,6 +19,10 @@ public class bookings extends AppCompatActivity {
         Intent intent = new Intent(this, AddNewBooking.class);
         startActivity(intent);
     }
+    public void onEditBookingClick(View view) {
+        Intent intent = new Intent(this, EditBooking.class);
+        startActivity(intent);
+    }
 
     /*public void onEditBookingClick(View view) {
         Intent intent = new Intent(this, AddNewBooking.class);

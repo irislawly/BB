@@ -42,12 +42,16 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/new_booking_update" />
+        android:text="@string/new_booking_update"
+        android:onClick="onNewBookingUpdateClick"
+        />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:text="@string/new_booking_cancel" />
+        android:text="@string/new_booking_cancel"
+        android:onClick="onNewBookingCancelClick"
+        />
 
 </LinearLayout>
