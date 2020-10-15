@@ -14,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onBookingClick(View view) {
-        Intent intent = new Intent(this, bookings.class);
+        Intent intent = new Intent(this, Bookings.class);
         startActivity(intent);
     }
 
@@ -24,7 +24,7 @@ public class MenuActivity extends AppCompatActivity {
     }*/
 
     public void onGymInfoClick(View view) {
-        Intent intent = new Intent(this, information.class);
+        Intent intent = new Intent(this, GymInformation.class);
         startActivity(intent);
     }
 

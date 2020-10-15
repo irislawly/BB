@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 import java.util.Map;
 
-public class information extends AppCompatActivity {
+public class GymInformation extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
 
@@ -35,18 +35,34 @@ public class information extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Map<String, Object> info = document.getData();
-                        Object j = info.get("address");
-                        Log.d("HELLO", "Get object name! " + j);
+
                         List<String> group = (List<String>) document.get("gymhours");
-                        Log.d("HELLO", "Get elemnt of array in object " + group.get(1) );
                         TextView mon_hour = findViewById( R.id.info_hour_mon_textview );
+                        TextView tues_hour = findViewById( R.id.info_hour_tues_textview );
+                        TextView wed_hour = findViewById( R.id.info_hour_wed_textview );
+                        TextView thurs_hour = findViewById( R.id.info_hour_thur_textview );
+                        TextView fri_hour = findViewById( R.id.info_hour_fri_textview );
+                        TextView sat_hour = findViewById( R.id.info_hour_sat_textview );
+                        TextView sun_hour = findViewById( R.id.info_hour_sun_textview );
+
+                        TextView max_cap = findViewById( R.id.info_gym_cap_textview );
+                        TextView street = findViewById( R.id.info_gym_street_textview );
+                        TextView city = findViewById( R.id.info_gym_city_textview );
+                        TextView phone = findViewById( R.id.info_gym_phone_textview );
+
                         mon_hour.setText(group.get(0));
+                        tues_hour.setText(group.get(1));
+                        wed_hour.setText(group.get(2));
+                        thurs_hour.setText(group.get(3));
+                        fri_hour.setText(group.get(4));
+                        sat_hour.setText(group.get(5));
+                        sun_hour.setText(group.get(6));
 
-
-
-
+                        street.setText(info.get("street").toString());
+                        city.setText(info.get("city").toString());
+                        max_cap.setText(info.get("maxcap").toString());
+                        phone.setText(info.get("phone").toString());
 
                     } else {
                         Log.d(TAG, "No such document");

@@ -11,9 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddNewBooking"></activity>
         <activity android:name=".EditBooking"></activity>
-        <activity android:name=".bookings"></activity>
+        <activity android:name=".Bookings"></activity>
         <activity android:name=".MenuActivity"></activity>
-        <activity android:name=".information" />
+        <activity android:name=".GymInformation" />
         <activity android:name=".ActivityLogin" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -12,6 +12,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ import com.google.firebase.firestore.Source;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -87,29 +89,39 @@ public class MainActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //adds user to database
+                userAuthenicate();
                 Intent intent = new Intent (this, MenuActivity.class);
                 startActivity(intent);
 
-                /*
-                String name = user.getDisplayName();
-                String email = user.getEmail();
-                addUser(name,email);
-                */
-
             } else {
 
-
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
             }
         }
     }
 
-
+    //checks if user in database, if not adds info to it.
+    public void userAuthenicate(){
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<String> ids = new ArrayList<String>();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ids.add(document.getId());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                        if(!ids.contains(user.getUid())){
+                            addUser(user.getDisplayName(), user.getEmail(), user.getUid());
+                        }
+                    }
+                });
+    }
 
     public void read(){db.collection("users")
             .get()
@@ -126,26 +138,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
     }
-    public void addUser(String name, String email) {
+    public void addUser(String name, String email, String uid) {
 
         // Create a new user with a first and last name
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
         user.put("email", email);
 
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("users").document(uid)
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document!!", e);
+                        Log.w(TAG, "Error writing document", e);
                     }
                 });
 

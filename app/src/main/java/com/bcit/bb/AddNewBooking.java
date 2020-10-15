@@ -70,11 +70,11 @@ public class AddNewBooking extends AppCompatActivity implements
 
     }
     public void onNewBookingCancelClick(View view) {
-        Intent intent = new Intent(this, bookings.class);
+        Intent intent = new Intent(this, Bookings.class);
         startActivity(intent);
     }
     public void onNewBookingUpdateClick(View view) {
-        Intent intent = new Intent(this, bookings.class);
+        Intent intent = new Intent(this, Bookings.class);
         startActivity(intent);
     }
 
