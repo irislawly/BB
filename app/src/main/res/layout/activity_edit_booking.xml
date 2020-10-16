@@ -14,7 +14,7 @@
         android:textSize="30dp" />
 
     <Spinner
-        android:id="@+id/spinnerequipment"
+        android:id="@+id/spinner_equipment"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -22,7 +22,7 @@
         android:spinnerMode="dropdown" />
 
     <Spinner
-        android:id="@+id/spinnerdate"
+        android:id="@+id/spinner_date"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -38,7 +38,7 @@
         android:spinnerMode="dropdown" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/booking_add"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
