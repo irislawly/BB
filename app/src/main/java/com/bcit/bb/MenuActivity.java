@@ -18,10 +18,10 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void onPolicyClick(View view) {
+    public void onPolicyClick(View view) {
         Intent intent = new Intent(this, PolicyActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     public void onGymInfoClick(View view) {
         Intent intent = new Intent(this, GymInformation.class);

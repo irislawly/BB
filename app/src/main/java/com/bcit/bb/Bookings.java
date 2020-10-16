@@ -51,11 +51,6 @@ public class Bookings extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void onEditBookingClick(View view) {
-        Intent intent = new Intent(this, AddNewBooking.class);
-        startActivity(intent);
-    }*/
-
     public void onDeleteBookingClick(View view) {
         Intent intent = new Intent(this, Delete.class);
         startActivity(intent);

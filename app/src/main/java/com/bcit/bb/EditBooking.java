@@ -22,6 +22,5 @@ public class EditBooking extends AppCompatActivity {
         startActivity(intent);
     }
 
-
 }
 
