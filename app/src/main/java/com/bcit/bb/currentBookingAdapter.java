@@ -6,9 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +16,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bcit.bb.R;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 /*
 Adapter class
@@ -45,20 +41,21 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
     @Override
     public void onBindViewHolder(@NonNull currentBookingAdapter.ViewHolder holder, int position) {
         final BookingTemplate booking = articleList.get(position);
-        holder.equipment.setText(booking.getEquiment());
+        holder.equipment.setText(booking.getEquipment());
         holder.date.setText(booking.getDate());
         holder.timeslot.setText(booking.getTimeslot());
+        Log.d("DEBUG", "msg" + booking.getTimeslot());
 
-
-//        holder.articleItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), DetailsActivity.class);
-//                Toast.makeText(context, "You just clicked some news", Toast.LENGTH_SHORT).show();
-//                intent.putExtra("news", booking);
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), Bookings.class);
+//                Toast.makeText(context, "You just clicked update", Toast.LENGTH_SHORT).show();
+//
+////                intent.putExtra("news", booking);
 //                view.getContext().startActivity(intent);
-//            }
-//        });
+            }
+        });
     }
 
     @Override
@@ -68,8 +65,10 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView equipment;
         public TextView timeslot;
-        public CardView articleItem;
+        public LinearLayout articleItem;
         public TextView date;
+        public Button delete;
+        public Button update;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -77,6 +76,8 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
             timeslot = itemView.findViewById(R.id.timeslot11);
             date = itemView.findViewById(R.id.date11);
             articleItem = itemView.findViewById(R.id.previewSummary);
+            delete = itemView.findViewById(R.id.editBooking1);
+            update = itemView.findViewById(R.id.deleteBooking1);
 
         }
     }

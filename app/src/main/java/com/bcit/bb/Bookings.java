@@ -2,6 +2,8 @@ package com.bcit.bb;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 
 public class Bookings extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -30,7 +34,11 @@ public class Bookings extends AppCompatActivity {
 
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     // Create a query against the collection.
-//    Query query = idsRef.whereEqualTo("id", currentuser);
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+
+    private ArrayList<BookingTemplate> listItems;
+
 
 
     String[] gymEquipment = new String[]{"Treadmill", "Rowing machine", "Dumbbells", "Leg press", "Pullup bar",
@@ -39,6 +47,11 @@ public class Bookings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings);
+        recyclerView = (RecyclerView)findViewById(R.id.item_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        listItems = new ArrayList<>();
         setQuene();
     }
 
@@ -58,7 +71,7 @@ public class Bookings extends AppCompatActivity {
     public void setQuene(){
         Log.d("debug","hi");
 
-                db.collection("bookings")
+        db.collection("bookings")
                 .whereEqualTo("id", currentuser)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -66,20 +79,21 @@ public class Bookings extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                TextView equip1 = findViewById(R.id.equip1);
                                 String temp_equip = (String) document.getData().get("equip");
-                                equip1.setText("Equip: "+temp_equip);
+                                Log.d("debug", (String) document.getData().get("equip"));
 
-                                TextView date1 = findViewById(R.id.date1);
                                 String temp_date = (String) document.getData().get("date");
-                                date1.setText("Date: "+temp_date);
+                                Log.d("debug", (String) document.getData().get("date"));
 
-                                TextView timeslot1 = findViewById(R.id.timeslot1);
                                 String temp_timeslot = (String) document.getData().get("timeslot");
-                                timeslot1.setText("Timeslot: "+temp_timeslot);
+                                Log.d("debug", (String) document.getData().get("timeslot"));
 
+                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date);
+                                listItems.add(book123);
                                 Log.d("debug", document.getId() + " => " + document.getData());
                             }
+                            adapter = new currentBookingAdapter(listItems, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("debug", "Error getting documents: ", task.getException());
                         }
@@ -87,4 +101,5 @@ public class Bookings extends AppCompatActivity {
                 });
 
     }
+
 }

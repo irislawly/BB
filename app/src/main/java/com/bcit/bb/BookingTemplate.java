@@ -3,12 +3,12 @@ package com.bcit.bb;
 import java.io.Serializable;
 
 public class BookingTemplate implements Serializable {
-    private String equiment;
+    private String equipment;
     private String timeslot;
     private String date;
 
-    public String getEquiment() {
-        return equiment;
+    public String getEquipment() {
+        return equipment;
     }
 
     public String getTimeslot() {
@@ -19,8 +19,8 @@ public class BookingTemplate implements Serializable {
         return date;
     }
 
-    public BookingTemplate(String equiment, String timeslot, String date) {
-        this.equiment = equiment;
+    public BookingTemplate(String equipment, String timeslot, String date) {
+        this.equipment = equipment;
         this.timeslot = timeslot;
         this.date = date;
     }
