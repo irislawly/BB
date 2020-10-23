@@ -11,6 +11,8 @@
     <string name="gym_safety_policy">Gym Safety Policy</string>
     <string name="gym_info">Gym Information</string>
     <string name="your_acc">Your Account</string>
+    <string name="signout">Signout</string>
+
 
     <!-- Gym information -->
     <string name="gym_info_title">Gym Information</string>
