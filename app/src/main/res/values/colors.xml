@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <!-- APP BAR -->
+    <color name="colorPrimary">#003b75</color>
+    <!-- PHONE BAR -->
+    <color name="colorPrimaryDark">#002447</color>
+    <!-- LOGIN BUTTONS -->
+    <color name="colorAccent">#f2ca00</color>
 </resources>
