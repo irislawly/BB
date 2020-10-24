@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/booking_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_booking"
@@ -19,22 +19,31 @@
         android:layout_height="wrap_content"
         android:text="gymname" />
 
-    <EditText
+    <Button
+        android:id="@+id/booking_add_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add date"
+
+        />
+
+    <TextView
         android:id="@+id/booking_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:ems="10"
-        android:hint="Enter Date" />
+        android:hint="Pick Date" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button1"
 
-        android:textStyle="bold"
-        android:textSize="18dp"/>
+        android:text="Choose time:"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 <!--
     <Spinner
         android:id="@+id/spinner_date"
@@ -54,6 +63,7 @@
         android:spinnerMode="dropdown" />
 
     <TableRow
+        android:id="@+id/booking_cap_label"
         android:layout_width="wrap_content"
         android:layout_height="75dp">
 
@@ -66,7 +76,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/buttonCheck"
+            android:id="@+id/button_cap_check"
             android:layout_width="122dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -74,24 +84,29 @@
             android:text="Check" />
     </TableRow>
 
-    <Spinner
-        android:id="@+id/spinner_equipment"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/booking_equip_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select up to 4." />
+
+    <com.bcit.bb.uiFeatures.MultiSelectionSpinner
+        android:id="@+id/booking_spinner_equip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="Select up to 4" />
 
     <Button
         android:id="@+id/booking_add"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:onClick="onNewBookingUpdateClick"
-        android:text="ADD" />
+        android:onClick="onNewBookingAddClick"
+        android:text="@string/new_booking_add" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/booking_new_cancel"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:onClick="onNewBookingCancelClick"

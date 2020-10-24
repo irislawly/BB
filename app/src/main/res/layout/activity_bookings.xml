@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Bookings"
-    tools:layout_editor_absoluteX="34dp"
-    tools:layout_editor_absoluteY="-2dp">
+    android:orientation="vertical"
+    >
 
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/booking_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:text="@string/booking_title"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/button" />
+         />
 
     <Button
         android:id="@+id/button"
@@ -27,56 +24,58 @@
         android:layout_marginEnd="32dp"
         android:onClick="onAddBookingClick"
         android:text="@string/booking_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="354dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:padding="30sp"
-        app:contentPadding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cardView"-->
+<!--        android:layout_width="354dp"-->
+<!--        android:layout_height="114dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:padding="30sp"-->
+<!--        >-->
 
-        <TextView
-            android:id="@+id/equip1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/booking_equip" />
+<!--        <TextView-->
+<!--            android:id="@+id/equip1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/booking_equip" />-->
 
-        <TextView
-            android:id="@+id/date1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/booking_date" />
+<!--        <TextView-->
+<!--            android:id="@+id/date1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="@string/booking_date" />-->
 
-        <TextView
-            android:id="@+id/timeslot1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="@string/booking_time" />
+<!--        <TextView-->
+<!--            android:id="@+id/timeslot1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="60dp"-->
+<!--            android:text="@string/booking_time" />-->
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="220dp"
-            android:onClick="onEditBookingClick"
-            android:text="@string/booking_edit" />
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="220dp"-->
+<!--            android:onClick="onEditBookingClick"-->
+<!--            android:text="@string/booking_edit" />-->
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="220dp"
-            android:layout_marginTop="50dp"
-            android:onClick="onDeleteBookingClick"
-            android:text="@string/booking_delete" />
-    </androidx.cardview.widget.CardView>
+<!--        <Button-->
+<!--            android:id="@+id/button3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="220dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:onClick="onDeleteBookingClick"-->
+<!--            android:text="@string/booking_delete" />-->
+<!--    </androidx.cardview.widget.CardView>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

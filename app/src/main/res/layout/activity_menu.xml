@@ -59,4 +59,14 @@
         android:layout_centerInParent="true"
         android:layout_below="@id/gym_info_btn"
         android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onGymSignoutClick"
+        android:text="@string/signout" />
 </RelativeLayout>

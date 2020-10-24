@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/previewSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/equipment11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Equipment">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/timeslot11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Timeslot">
+
+            </TextView>
+            <TextView
+                android:id="@+id/date11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date">
+
+            </TextView>
+            <Button
+                android:id="@+id/editBooking1"
+                android:layout_width="wrap_content"
+                android:onClick="onEditBookingClick"
+                android:text="@string/booking_edit"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/deleteBooking1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onDeleteBookingClick"
+                android:text="@string/booking_delete" />
+
+        </LinearLayout>
+
+
+</LinearLayout>
