@@ -47,14 +47,15 @@
     <string name="booking_edit">Edit</string>
     <string name="booking_delete">Delete</string>
     <string name="back_button">Back</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Adding new booking information -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <string name="edit_booking">Edit Booking</string>
     <string name="new_booking">New Booking</string>
-    <string name="currentCap">Current Cap: </string>
-    <string name="new_booking_update">Update</string>
+    <string name="currentCap">Current Capacity: </string>
+    <string name="new_booking_add">Add</string>
     <string name="new_booking_cancel">Cancel</string>
 
     <string name="edit_booking_update">Update</string>

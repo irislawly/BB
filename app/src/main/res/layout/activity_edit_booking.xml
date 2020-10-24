@@ -6,7 +6,7 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/booking_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-22dp"
@@ -14,7 +14,7 @@
         android:textSize="30dp" />
 
     <Spinner
-        android:id="@+id/spinner_equipment"
+        android:id="@+id/edit_spinner_equipment"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -22,7 +22,7 @@
         android:spinnerMode="dropdown" />
 
     <Spinner
-        android:id="@+id/spinner_date"
+        android:id="@+id/edit_spinner_date"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -30,7 +30,7 @@
         android:spinnerMode="dropdown" />
 
     <Spinner
-        android:id="@+id/spinnertimeslot"
+        android:id="@+id/edit_spinnertimeslot"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -38,7 +38,7 @@
         android:spinnerMode="dropdown" />
 
     <Button
-        android:id="@+id/booking_add"
+        android:id="@+id/edit_booking_add"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
@@ -47,7 +47,7 @@
         />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/edit_booking_new_cancel"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/edit_booking_cancel"
