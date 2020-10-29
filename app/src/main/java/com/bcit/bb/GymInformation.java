@@ -23,15 +23,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 import java.util.Map;
 
-public class GymInformation extends AppCompatActivity {
+public class GymInformation extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
+    private GoogleMap mMap;
+    float zoomLevel = 13.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
         get_Gym_Information();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     public void get_Gym_Information(){
@@ -80,6 +86,25 @@ public class GymInformation extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in BCIT recreation center and move the camera
+        LatLng bcit = new LatLng(49.248920, -123.000693);
+        mMap.addMarker(new MarkerOptions().position(bcit).title("BCIT Recreation Center"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bcit, zoomLevel));
     }
 
 }
