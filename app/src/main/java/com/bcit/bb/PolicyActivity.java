@@ -7,12 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 import java.util.ArrayList;
 
 public class PolicyActivity extends AppCompatActivity {
     private static final String TAG = "PolicyActivity";
     //private ArrayList<String> policyListHeaders = new ArrayList<>();
     private ArrayList<String> policyList = new ArrayList<>();
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

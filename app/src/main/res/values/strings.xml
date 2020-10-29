@@ -62,5 +62,6 @@
 
     <string name="edit_booking_update">Update</string>
     <string name="edit_booking_cancel">Cancel</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
