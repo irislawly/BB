@@ -6,27 +6,31 @@
     android:orientation="vertical"
     >
 
-
-    <TextView
-        android:id="@+id/booking_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:text="@string/booking_title"
-        android:textSize="24sp"
-         />
+        android:gravity="center|center_horizontal|top|center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="onAddBookingClick"
-        android:text="@string/booking_add"
-        />
+        <TextView
+            android:id="@+id/booking_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/booking_title"
+            android:textSize="24sp" />
 
-<!--    <androidx.cardview.widget.CardView-->
+        <Button
+            android:id="@+id/menu_button"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:onClick="onReturnMenuClick"
+            android:text="Menu" />
+
+    </LinearLayout>
+
+    <!--    <androidx.cardview.widget.CardView-->
 <!--        android:id="@+id/cardView"-->
 <!--        android:layout_width="354dp"-->
 <!--        android:layout_height="114dp"-->
@@ -72,6 +76,16 @@
 <!--            android:onClick="onDeleteBookingClick"-->
 <!--            android:text="@string/booking_delete" />-->
 <!--    </androidx.cardview.widget.CardView>-->
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="onAddBookingClick"
+        android:paddingLeft="10dp"
+        android:text="@string/booking_add" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:layout_width="match_parent"

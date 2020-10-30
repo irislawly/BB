@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,13 +61,40 @@ public class Bookings extends AppCompatActivity {
         Intent intent = new Intent(this, AddNewBooking.class);
         startActivity(intent);
     }
+    //not working yet need to edit currentingboooking adapter class
     public void onEditBookingClick(View view) {
         Intent intent = new Intent(this, EditBooking.class);
         startActivity(intent);
     }
 
+    public void onReturnMenuClick(View view) {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+    }
+
     public void onDeleteBookingClick(View view) {
-        Intent intent = new Intent(this, Delete.class);
+        Log.d("debug","Delete pressed");
+        TextView timeslotID = findViewById(R.id.timeslotID);
+        String idStr = timeslotID.getText().toString();
+        Log.d("debugDelete",idStr);
+
+        db.collection("bookings").document(idStr)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("debug", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("debug", "Error deleting document", e);
+                    }
+                });
+
+
+        Intent intent = new Intent(this, Bookings.class);
         startActivity(intent);
     }
     public void setQuene(){
@@ -79,6 +108,9 @@ public class Bookings extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                String temp_id =  document.getId();
+                                Log.d("debug", temp_id);
                                 String temp_equip = (String) document.getData().get("equip");
                                 Log.d("debug", (String) document.getData().get("equip"));
 
@@ -88,7 +120,7 @@ public class Bookings extends AppCompatActivity {
                                 String temp_timeslot = (String) document.getData().get("timeslot");
                                 Log.d("debug", (String) document.getData().get("timeslot"));
 
-                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date);
+                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id);
                                 listItems.add(book123);
                                 Log.d("debug", document.getId() + " => " + document.getData());
                             }

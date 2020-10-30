@@ -44,6 +44,7 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
         holder.equipment.setText(booking.getEquipment());
         holder.date.setText(booking.getDate());
         holder.timeslot.setText(booking.getTimeslot());
+         holder.id.setText(booking.getId());
         Log.d("DEBUG", "msg" + booking.getTimeslot());
 
         holder.update.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +70,18 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
         public TextView date;
         public Button delete;
         public Button update;
+        public TextView id;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             equipment = itemView.findViewById(R.id.equipment11);
+
             timeslot = itemView.findViewById(R.id.timeslot11);
             date = itemView.findViewById(R.id.date11);
             articleItem = itemView.findViewById(R.id.previewSummary);
-            delete = itemView.findViewById(R.id.editBooking1);
-            update = itemView.findViewById(R.id.deleteBooking1);
+            update = itemView.findViewById(R.id.editBooking1);
+            delete = itemView.findViewById(R.id.deleteBooking1);
+            id = itemView.findViewById(R.id.timeslotID);
 
         }
     }
