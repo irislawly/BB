@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bcit.bb">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -16,7 +19,26 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".YourAccountActivity"
+            android:label="@string/title_activity_your_account">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="true" />
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,24 +54,24 @@
         <activity
             android:name=".PolicyActivity"
             android:label="Gym Policy"
-            android:parentActivityName=".MenuActivity"/>
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".AddNewBooking"
             android:label="New Booking"
-            android:parentActivityName=".Bookings"/>
+            android:parentActivityName=".Bookings" />
         <activity
             android:name=".EditBooking"
             android:label="Edit Booking"
-            android:parentActivityName=".Bookings"/>
+            android:parentActivityName=".Bookings" />
         <activity
             android:name=".Bookings"
-            android:parentActivityName=".MenuActivity"
-            android:label="Booking"/>
+            android:label="Booking"
+            android:parentActivityName=".MenuActivity" />
         <activity android:name=".MenuActivity" />
         <activity
             android:name=".GymInformation"
             android:label="Gym Information"
-            android:parentActivityName=".MenuActivity"/>
+            android:parentActivityName=".MenuActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,4 +80,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

@@ -32,10 +32,10 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void onAccClick(View view) {
+    public void onAccClick(View view) {
         Intent intent = new Intent(this, YourAccountActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     public void onGymSignoutClick(View view) {
         FirebaseAuth.getInstance().signOut();

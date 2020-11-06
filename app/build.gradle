@@ -33,6 +33,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'androidx.wear:wear:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -51,4 +52,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //  implementation 'com.google.firebase:firebase-storage'
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    compileOnly 'com.google.android.wearable:wearable:2.8.1'
 }
