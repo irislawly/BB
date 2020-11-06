@@ -4,4 +4,6 @@
     <dimen name="text_size_policy_header2">15sp</dimen>
     <dimen name="text_size_policy_items">15sp</dimen>
     <dimen name="padding_policy">10dp</dimen>
+    <dimen name="btn_width">100dp</dimen>
+    <dimen name="btn_height">100dp</dimen>
 </resources>

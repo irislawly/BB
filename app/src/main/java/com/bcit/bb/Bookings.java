@@ -220,11 +220,6 @@ public class Bookings extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onReturnMenuClick(View view) {
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
-
     public void onDeleteBookingClick(View view) {
         Log.d("debug","Delete pressed");
         TextView timeslotID = findViewById(R.id.timeslotID);

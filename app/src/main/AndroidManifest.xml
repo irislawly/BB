@@ -29,12 +29,27 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".PolicyActivity" />
-        <activity android:name=".AddNewBooking" />
-        <activity android:name=".EditBooking" />
-        <activity android:name=".Bookings" />
+        <activity
+            android:name=".PolicyActivity"
+            android:label="Gym Policy"
+            android:parentActivityName=".MenuActivity"/>
+        <activity
+            android:name=".AddNewBooking"
+            android:label="New Booking"
+            android:parentActivityName=".Bookings"/>
+        <activity
+            android:name=".EditBooking"
+            android:label="Edit Booking"
+            android:parentActivityName=".Bookings"/>
+        <activity
+            android:name=".Bookings"
+            android:parentActivityName=".MenuActivity"
+            android:label="Booking"/>
         <activity android:name=".MenuActivity" />
-        <activity android:name=".GymInformation" />
+        <activity
+            android:name=".GymInformation"
+            android:label="Gym Information"
+            android:parentActivityName=".MenuActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

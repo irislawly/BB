@@ -5,69 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuActivity"
-    android:id="@+id/main_layout">
+    android:id="@+id/main_layout"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signout_layout">
+        <Button
+            android:id="@+id/signout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onGymSignoutClick"
+            android:text="@string/signout"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorAccent"
+        />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/app_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="@string/app_name"
-        android:layout_above="@id/booking_btn"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="100dp"
         android:textSize="20pt"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_below="@id/signout_layout"/>
 
-    <Button
-        android:id="@+id/booking_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/booking_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/booking"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="5dp"
-        android:onClick="onBookingClick"/>
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/app_name_tv"
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/gym_policy_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/gym_safety_policy"
-        android:layout_below="@id/booking_btn"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="5dp"
-        android:onClick="onPolicyClick"/>
+        <ImageButton
+            android:id="@+id/booking_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:src="@drawable/booking"
+            android:text="@string/booking"
+            android:onClick="onBookingClick"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/gym_info_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/gym_info"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/gym_policy_btn"
-        android:layout_marginBottom="5dp"
-        android:onClick="onGymInfoClick"/>
+        <ImageButton
+            android:id="@+id/gym_policy_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:src="@drawable/policy"
+            android:layout_marginBottom="5dp"
+            android:onClick="onPolicyClick"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/your_acc_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/your_acc"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/gym_info_btn"
-        android:layout_marginBottom="5dp"/>
+        android:orientation="horizontal"
+        android:layout_below="@+id/booking_layout">
+        <ImageButton
+            android:id="@+id/gym_info_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:src="@drawable/info"
+            android:layout_marginBottom="5dp"
+            android:onClick="onGymInfoClick"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="15dp"
-        android:onClick="onGymSignoutClick"
-        android:text="@string/signout" />
+        <ImageButton
+            android:id="@+id/your_acc_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:src="@drawable/account"
+            android:text="@string/your_acc"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 </RelativeLayout>
