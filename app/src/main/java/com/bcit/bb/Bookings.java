@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.text.DateFormatSymbols;
+
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,28 +52,29 @@ public class Bookings extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private ArrayList<BookingTemplate> listItems;
-    private CompactCalendarView  compactCalendarView;
+    private CompactCalendarView compactCalendarView;
     private TextView calMonth;
 
     String[] gymEquipment = new String[]{"Treadmill", "Rowing machine", "Dumbbells", "Leg press", "Pullup bar",
             "Chess press", "Bench press", "Pullup bar", "Lat pulldown"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings);
-        recyclerView = (RecyclerView)findViewById(R.id.item_list);
+        recyclerView = (RecyclerView) findViewById(R.id.item_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         compactCalendarView = findViewById(R.id.compactcalendar_view);
 
-              Date d = compactCalendarView.getFirstDayOfCurrentMonth();
+        Date d = compactCalendarView.getFirstDayOfCurrentMonth();
 
-           String monthString = new DateFormatSymbols().getMonths()[d.getMonth()];
-           String yearString = " " + 2020;
-             calMonth = findViewById(R.id.month_title);
-             calMonth.setText(monthString + yearString);
-        //   setQueue();
+        String monthString = new DateFormatSymbols().getMonths()[d.getMonth()];
+        String yearString = " " + 2020;
+        calMonth = findViewById(R.id.month_title);
+        calMonth.setText(monthString + yearString);
+        // to post all user's timeslot current  setQueue();
         highlightCalendarEvents();
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -79,8 +84,8 @@ public class Bookings extends AppCompatActivity {
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
 
 
-                if(events.size() != 0){
-                    String dateId =  (String) events.get(0).getData();
+                if (events.size() != 0) {
+                    String dateId = (String) events.get(0).getData();
                     Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + (String) events.get(0).getData());
                     DocumentReference docRef = db.collection("bookings").document(dateId);
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -91,7 +96,7 @@ public class Bookings extends AppCompatActivity {
                                 if (document.exists()) {
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                                    String temp_id =  document.getId();
+                                    String temp_id = document.getId();
                                     Log.d("debug", temp_id);
                                     String temp_equip = (String) document.getData().get("equip");
                                     Log.d("debug", (String) document.getData().get("equip"));
@@ -130,7 +135,8 @@ public class Bookings extends AppCompatActivity {
             }
         });
     }
-    public void highlightCalendarEvents(){
+
+    public void highlightCalendarEvents() {
 /*
         long miliSecsDate = milliseconds ("2020-11-14");
         Log.d(TAG, "Date in milli :: FOR API >= 26 >>> " + miliSecsDate);
@@ -149,13 +155,13 @@ public class Bookings extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                String temp_id =  document.getId();
+                                String temp_id = document.getId();
                                 String temp_date = (String) document.getData().get("date");
                                 Log.d(TAG, (String) document.getData().get("date"));
 
                                 Log.d("TAG", document.getId() + " => " + document.getData());
 
-                                long miliSecsDate = milliseconds (temp_date);
+                                long miliSecsDate = milliseconds(temp_date);
                                 Event ev1 = new Event(Color.BLUE, miliSecsDate, temp_id);
                                 compactCalendarView.addEvent(ev1);
                             }
@@ -167,6 +173,7 @@ public class Bookings extends AppCompatActivity {
                     }
                 });
     }
+
     public void prevMonthClick(View view) {
         compactCalendarView.scrollLeft();
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
@@ -185,19 +192,15 @@ public class Bookings extends AppCompatActivity {
         calMonth.setText(monthString + yearString);
     }
 
-    public long milliseconds(String date)
-    {
+    public long milliseconds(String date) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try
-        {
+        try {
             Date mDate = sdf.parse(date);
             long timeInMilliseconds = mDate.getTime();
             System.out.println("Date in milli :: " + timeInMilliseconds);
             return timeInMilliseconds;
-        }
-        catch (ParseException e)
-        {
+        } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -209,22 +212,23 @@ public class Bookings extends AppCompatActivity {
         Intent intent = new Intent(this, AddNewBooking.class);
         startActivity(intent);
     }
+
     //not working yet need to edit currentingboooking adapter class
     public void onEditBookingClick(View view) {
         Intent intent = new Intent(this, EditBooking.class);
-        Log.d("debug"," Edit pressed");
+        Log.d("debug", " Edit pressed");
         TextView timeslotID = findViewById(R.id.timeslotID);
         String idStr = timeslotID.getText().toString();
-        Log.d("debugDelete" ,idStr);
+        Log.d("debugDelete", idStr);
         intent.putExtra("id", idStr);
         startActivity(intent);
     }
 
     public void onDeleteBookingClick(View view) {
-        Log.d("debug","Delete pressed");
+        Log.d("debug", "Delete pressed");
         TextView timeslotID = findViewById(R.id.timeslotID);
         String idStr = timeslotID.getText().toString();
-        Log.d("debugDelete",idStr);
+        Log.d("debugDelete", idStr);
 
         db.collection("bookings").document(idStr)
                 .delete()
@@ -241,13 +245,32 @@ public class Bookings extends AppCompatActivity {
                     }
                 });
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Warning");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), Bookings.class);
+                        startActivity(intent);
+                    }
+                });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
 
-        Intent intent = new Intent(this, Bookings.class);
-        startActivity(intent);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
-    public void setQueue(){
+
+    public void setQueue() {
         listItems = new ArrayList<>();
-        Log.d("debug","hi");
+        Log.d("debug", "hi");
 
         db.collection("bookings")
                 .whereEqualTo("id", currentuser)
@@ -258,7 +281,7 @@ public class Bookings extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                String temp_id =  document.getId();
+                                String temp_id = document.getId();
                                 Log.d("debug", temp_id);
                                 String temp_equip = (String) document.getData().get("equip");
                                 Log.d("debug", (String) document.getData().get("equip"));
