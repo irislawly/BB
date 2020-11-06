@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -114,7 +115,8 @@ public class AddNewBooking extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(c.getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateString  = df.format(c.getTime());
         TextView textView = (TextView) findViewById(R.id.booking_date_textview);
         textView.setText(currentDateString);
     }
@@ -249,6 +251,10 @@ public class AddNewBooking extends AppCompatActivity implements DatePickerDialog
                                 Toast.makeText(getApplicationContext(), "Timeslot already exists!"
                                         , Toast.LENGTH_SHORT).show();
 
+                            }
+                            else if(spin.getSelections()==0){
+                                Toast.makeText(getApplicationContext(), "You didn't choose any equipments!"
+                                        , Toast.LENGTH_SHORT).show();
                             }
                             else if(hourOverlap){
                                 Toast.makeText(getApplicationContext(), "You have hour overlapping with others"

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,68 +28,70 @@
             android:onClick="onReturnMenuClick"
             android:text="Menu" />
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:onClick="onAddBookingClick"
+            android:paddingLeft="10dp"
+            android:text="@string/booking_add" />
+
     </LinearLayout>
 
-    <!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/cardView"-->
-<!--        android:layout_width="354dp"-->
-<!--        android:layout_height="114dp"-->
-<!--        android:layout_marginTop="25dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:padding="30sp"-->
-<!--        >-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/equip1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/booking_equip" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/date1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:text="@string/booking_date" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/timeslot1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="60dp"-->
-<!--            android:text="@string/booking_time" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="220dp"-->
-<!--            android:onClick="onEditBookingClick"-->
-<!--            android:text="@string/booking_edit" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="220dp"-->
-<!--            android:layout_marginTop="50dp"-->
-<!--            android:onClick="onDeleteBookingClick"-->
-<!--            android:text="@string/booking_delete" />-->
-<!--    </androidx.cardview.widget.CardView>-->
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="onAddBookingClick"
+        android:gravity="center|center_horizontal|top|center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <Button
+            android:id="@+id/month_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="prevMonthClick"
+            android:text="L" />
+
+        <TextView
+            android:id="@+id/month_title"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="Month"
+
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+
+        <Button
+            android:id="@+id/month_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:onClick="nextMonthClick"
+            android:text="R" />
+
+    </LinearLayout>
+
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="351dp"
+        android:layout_height="259dp"
         android:paddingLeft="10dp"
-        android:text="@string/booking_add" />
+        android:paddingRight="10dp"
+        app:compactCalendarBackgroundColor="@android:color/white"
+        app:compactCalendarCurrentDayBackgroundColor="#ff00ff"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccent"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextColor="@color/colorPrimaryDark"
+        app:compactCalendarTextSize="12sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

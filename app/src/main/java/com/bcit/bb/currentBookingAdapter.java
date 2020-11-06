@@ -47,16 +47,6 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
          holder.id.setText(booking.getId());
         Log.d("DEBUG", "msg" + booking.getTimeslot());
 
-        holder.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), Bookings.class);
-//                Toast.makeText(context, "You just clicked update", Toast.LENGTH_SHORT).show();
-//
-////                intent.putExtra("news", booking);
-//                view.getContext().startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -75,7 +65,6 @@ public class currentBookingAdapter extends RecyclerView.Adapter<currentBookingAd
             super(itemView);
 
             equipment = itemView.findViewById(R.id.equipment11);
-
             timeslot = itemView.findViewById(R.id.timeslot11);
             date = itemView.findViewById(R.id.date11);
             articleItem = itemView.findViewById(R.id.previewSummary);
