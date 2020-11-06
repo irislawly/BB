@@ -11,20 +11,18 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-    />
+        android:text="user name" />
 
     <TextView
         android:id="@+id/email"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:text="email" />
 
     <Spinner
         android:id="@+id/gym_choice_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown" />
 

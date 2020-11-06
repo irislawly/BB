@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,47 +36,54 @@ public class YourAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_account);
 
-        final TextView username = findViewById(R.id.username);
-        final TextView email = findViewById(R.id.email);
+get_user_info();
 
-        idsRef.whereEqualTo("id", currentuser)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String username_db = (String) document.getData().get("username").toString();
-                                Log.d("debug", (String) document.getData().get("username"));
-                                username.setText(username_db);
+        get_choice();
+    }
 
-                                String email_db = (String) document.getData().get("email").toString();
-                                Log.d("debug", (String) document.getData().get("email"));
-                                email.setText(email_db);
+    public void get_user_info(){
+        DocumentReference docRef = db.collection("users").document(currentuser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                TextView username = findViewById(R.id.username);
+                TextView email = findViewById(R.id.email);
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String username_db = (String) document.getData().get("name");
+                        username.setText(username_db);
 
-                                get_choice();
-                            }
-                        } else {
-                            Log.d("debug", "Error getting documents: ", task.getException());
-                        }
+                           String email_db = (String) document.getData().get("email");
+                            Log.d("debug", (String) document.getData().get("email"));
+                             email.setText(email_db);
+
+                    } else {
+                        Log.d(TAG, "No such document");
                     }
-                });
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     public void get_choice() {
-        final List<String> choices = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, choices);
-        final Spinner spinner;
 
-        spinner = findViewById(R.id.gym_choice_spinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
         db.collection("admins")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<String> choices = new ArrayList<>();
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, choices);
+                        Spinner spinner;
+
+                        spinner = findViewById(R.id.gym_choice_spinner);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String choice = (String) document.getData().get("gymname");
