@@ -91,7 +91,8 @@
             android:text="@string/your_acc"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onAccClick"/>
     </LinearLayout>
 
 </RelativeLayout>

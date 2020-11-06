@@ -45,20 +45,15 @@ public class YourAccountActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                String temp_id = document.getId();
-                                Log.d("debug", temp_id);
-                                String username_db = (String) document.getData().get("username");
+                                String username_db = (String) document.getData().get("username").toString();
                                 Log.d("debug", (String) document.getData().get("username"));
                                 username.setText(username_db);
 
-                                String email_db = (String) document.getData().get("email");
+                                String email_db = (String) document.getData().get("email").toString();
                                 Log.d("debug", (String) document.getData().get("email"));
                                 email.setText(email_db);
 
-//                                String gym_choice_db = (String)  document.getData().get("gym_choice");
-//                                Log.d("debug", (String) document.getData().get("gym_choice"));
-//                                String choice = gym_choice.getSelectedItem().toString();
+                                get_choice();
                             }
                         } else {
                             Log.d("debug", "Error getting documents: ", task.getException());
@@ -68,31 +63,31 @@ public class YourAccountActivity extends AppCompatActivity {
     }
 
     public void get_choice() {
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference subjectsRef = rootRef.collection("admins").document(currentuser)
-                .collection("gymname");
-
         final List<String> choices = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, choices);
-
-
-        // Multi spinner
         final Spinner spinner;
+
         spinner = findViewById(R.id.gym_choice_spinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-        subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String subject = document.getString("gymchoice");
-                        choices.add(subject);
+        db.collection("admins")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String choice = (String) document.getData().get("gymname");
+                                choices.add(choice);
+                                Log.d(TAG, document.getId() + " => " + document.getData().get("gymname"));
+                                adapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
-                    //spinner.setItem(choices);
-
-                }
-            }
-        });
+                });
 
     }
 }
