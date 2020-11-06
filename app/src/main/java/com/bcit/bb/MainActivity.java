@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 //adds user to database
                 userAuthenicate();
                 Intent intent = new Intent (this, MenuActivity.class);
-
                 startActivity(intent);
 
             } else {
