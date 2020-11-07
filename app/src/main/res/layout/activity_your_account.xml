@@ -16,15 +16,16 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="user name"
         android:textStyle="bold"
-        android:textSize="@dimen/text_size_policy_header2"/>
+        android:textSize="24sp"
+        android:layout_marginBottom="@dimen/inner_frame_layout_padding"/>
 
     <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email"/>
+        android:layout_marginBottom="30dp"
+        android:textSize="15sp"/>
 
     <Spinner
         android:id="@+id/gym_choice_spinner"
@@ -35,13 +36,14 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/button"
+        android:id="@+id/edit_btn"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_below="@+id/info_layout"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:onClick="onEditAccountClick"/>
 
 </RelativeLayout>

@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EditAccount"></activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -59,7 +60,8 @@
             android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".YourAccountActivity"
-            android:label="Your Account"/>
+            android:label="Your Account"
+            android:parentActivityName=".MenuActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

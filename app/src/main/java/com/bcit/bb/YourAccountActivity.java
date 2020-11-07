@@ -3,9 +3,12 @@ package com.bcit.bb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -67,8 +70,6 @@ public class YourAccountActivity extends AppCompatActivity {
     }
 
     public void get_choice() {
-
-
         db.collection("admins")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -93,6 +94,10 @@ public class YourAccountActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
 
+    public void onEditAccountClick(View view) {
+        Intent intent = new Intent(this, EditAccount.class);
+        startActivity(intent);
     }
 }
