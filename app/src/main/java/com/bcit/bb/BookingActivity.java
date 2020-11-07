@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
 
 import com.bcit.bb.adapters.BookingAdapter;
+import com.bcit.bb.adapters.BookingTemplate;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,14 +41,14 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Bookings extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference idsRef = db.collection("bookings");
     String TAG = "Debug Iris";
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-
+ private  Button addButt;
     private ArrayList<BookingTemplate> listItems;
     private CompactCalendarView compactCalendarView;
     private TextView calMonth;
@@ -61,7 +63,7 @@ public class Bookings extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.item_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        addButt = findViewById(R.id.buttonAdd);
         compactCalendarView = findViewById(R.id.compactcalendar_view);
 
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
@@ -79,8 +81,13 @@ public class Bookings extends AppCompatActivity {
                 listItems = new ArrayList<>();
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
 
-
                 if (events.size() != 0) {
+                    addButt.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(), "Day booked, choose another date."
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     String dateId = (String) events.get(0).getData();
                     Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + (String) events.get(0).getData());
                     DocumentReference docRef = db.collection("bookings").document(dateId);
@@ -118,23 +125,26 @@ public class Bookings extends AppCompatActivity {
                             }
                         }
                     });
+                }else {
+                    listItems.clear();
+                    adapter = new BookingAdapter(listItems, getApplicationContext());
+                    recyclerView.setAdapter(adapter);
+                    Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + events);
+              //      Button addButt = findViewById(R.id.buttonAdd);
+                    addButt.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
+                            intent.putExtra("date", dateClicked);
+                            intent.putExtra("weekday", dateClicked.getDay());
+
+                            //   String d = " ";
+                            String s = " " + dateClicked.getDay();
+                            Log.d(TAG, s);
+                            startActivity(intent);
+                        }
+                    });
+
                 }
-                Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + events);
-                Button addButt = findViewById(R.id.buttonAdd);
-                addButt.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), NewBooking.class);
-                        intent.putExtra("date", dateClicked);
-                        intent.putExtra("weekday", dateClicked.getDay());
-
-                     //   String d = " ";
-                        String s = " " + dateClicked.getDay();
-                        Log.d(TAG,s);
-                        startActivity(intent);
-                    }
-                });
-
-
             }
 
             @Override
@@ -148,17 +158,13 @@ public class Bookings extends AppCompatActivity {
             }
         });
     }
+    public void onAddBookingClick(View view) {
+        Toast.makeText(getApplicationContext(), "Choose a date on calendar."
+                , Toast.LENGTH_SHORT).show();
+    }
 
     public void highlightCalendarEvents() {
-/*
-        long miliSecsDate = milliseconds ("2020-11-14");
-        Log.d(TAG, "Date in milli :: FOR API >= 26 >>> " + miliSecsDate);
-        long miliSecsDate2 = milliseconds ("2020-11-24");
-        Event ev1 = new Event(Color.BLUE, miliSecsDate, "docid1");
-        compactCalendarView.addEvent(ev1);
-        Event ev2 = new Event(Color.BLUE, miliSecsDate2, "docid2");
-        compactCalendarView.addEvent(ev2);
-*/
+
         db.collection("bookings")
                 .whereEqualTo("id", currentuser)
                 .get()
@@ -221,17 +227,13 @@ public class Bookings extends AppCompatActivity {
         return 0;
     }
 
-
-
     //need to edit
     public void onEditBookingClick(View view) {
-        Intent intent = new Intent(this, EditBooking.class);
-        Log.d("debug", " Edit pressed");
+        Intent intent = new Intent(this, EditBookingActivity.class);
         TextView timeslotID = findViewById(R.id.timeslotID);
         TextView book_date = findViewById(R.id.book_date);
         String dateStr = book_date.getText().toString();
         String idStr = timeslotID.getText().toString();
-        Log.d("debugDelete", idStr);
         intent.putExtra("id", idStr);
         intent.putExtra("date", dateStr);
 
@@ -239,10 +241,8 @@ public class Bookings extends AppCompatActivity {
     }
 
     public void onDeleteBookingClick(View view) {
-        Log.d("debug", "Delete pressed");
         TextView timeslotID = findViewById(R.id.timeslotID);
         String idStr = timeslotID.getText().toString();
-        Log.d("debugDelete", idStr);
 
         db.collection("bookings").document(idStr)
                 .delete()
@@ -258,7 +258,10 @@ public class Bookings extends AppCompatActivity {
                         Log.w("debug", "Error deleting document", e);
                     }
                 });
+        alert();
+    }
 
+    public void alert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Warning");
@@ -267,7 +270,7 @@ public class Bookings extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), Bookings.class);
+                        Intent intent = new Intent(getApplicationContext(), BookingActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -279,7 +282,6 @@ public class Bookings extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     public void setQueue() {

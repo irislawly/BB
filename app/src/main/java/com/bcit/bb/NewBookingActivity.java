@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,9 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
-import com.bcit.bb.uiFeatures.DatePickerFragment;
 import com.bcit.bb.uiFeatures.MultiSelectionSpinner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,8 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NewBooking extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NewBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "BookingSnippets";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -290,7 +285,7 @@ public class NewBooking extends AppCompatActivity implements DatePickerDialog.On
     }
 
     public void onNewBookingCancelClick(View view) {
-        Intent intent = new Intent(this, Bookings.class);
+        Intent intent = new Intent(this, BookingActivity.class);
         startActivity(intent);
     }
 
@@ -348,7 +343,7 @@ public class NewBooking extends AppCompatActivity implements DatePickerDialog.On
                                         , Toast.LENGTH_SHORT).show();
                             } else {
                                 writeToDatabase(dateStr, timeslot, "0", s, user.getUid(), gymStr);
-                                Intent intent = new Intent(getBaseContext(), Bookings.class);
+                                Intent intent = new Intent(getBaseContext(), BookingActivity.class);
                                 startActivity(intent);
 
                             }

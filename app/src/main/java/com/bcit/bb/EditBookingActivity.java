@@ -35,12 +35,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditBooking extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class EditBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "BookingSnippets";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -217,7 +216,7 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
     }
 
     public void onNewBookingCancelClick(View view) {
-        Intent intent = new Intent(this, Bookings.class);
+        Intent intent = new Intent(this, BookingActivity.class);
         startActivity(intent);
     }
 
@@ -273,7 +272,7 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
                             }
                             else {
                                 writeToDatabase(dateStr, timeslot, "0", s, user.getUid(), gymStr);
-                                Intent intent = new Intent(getBaseContext(), Bookings.class);
+                                Intent intent = new Intent(getBaseContext(), BookingActivity.class);
                                 startActivity(intent);
 
                             }

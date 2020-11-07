@@ -34,12 +34,15 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private GoogleMap mMap;
     float zoomLevel = 13.0f;
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String gym_id_global;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+         get_Gym_Id();
         get_Gym_Choice();
-        get_Gym_Id();
+        Log.d(TAG, "Gloabl " + gym_id_global);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -93,6 +96,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void get_Gym_Information(String gym_id){
+
+
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

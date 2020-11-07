@@ -1,4 +1,4 @@
-package com.bcit.bb;
+package com.bcit.bb.adapters;
 
 import java.io.Serializable;
 

@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bcit.bb.BookingTemplate;
 import com.bcit.bb.R;
 
 import java.util.ArrayList;

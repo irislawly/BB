@@ -50,15 +50,15 @@
             android:label="Gym Policy"
             android:parentActivityName=".MenuActivity" />
         <activity
-            android:name=".NewBooking"
+            android:name=".NewBookingActivity"
             android:label="New Booking"
-            android:parentActivityName=".Bookings" />
+            android:parentActivityName=".BookingActivity" />
         <activity
-            android:name=".EditBooking"
+            android:name=".EditBookingActivity"
             android:label="Edit Booking"
-            android:parentActivityName=".Bookings" />
+            android:parentActivityName=".BookingActivity" />
         <activity
-            android:name=".Bookings"
+            android:name=".BookingActivity"
             android:label="Booking"
             android:parentActivityName=".MenuActivity" />
         <activity android:name=".MenuActivity" />
