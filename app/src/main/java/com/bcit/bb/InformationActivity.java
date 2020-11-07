@@ -16,32 +16,84 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 import java.util.Map;
 
-public class GymInformation extends AppCompatActivity implements OnMapReadyCallback {
+public class InformationActivity extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
     private GoogleMap mMap;
     float zoomLevel = 13.0f;
-
+    String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        get_Gym_Information();
+        get_Gym_Choice();
+        get_Gym_Id();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+    public void get_Gym_Choice(){
+        DocumentReference docRef = db.collection("users").document(currentuser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                TextView gymname = findViewById(R.id.info_gym_name_textview);
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String gym_choice = (String) document.getData().get("gymchoice");
+                        gymname.setText(gym_choice);
 
-    public void get_Gym_Information(){
-        DocumentReference docRef = db.collection("admins").document("adminTest");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    public void get_Gym_Id(){
+
+        DocumentReference docRef = db.collection("users").document(currentuser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String gym_id = (String) document.getData().get("gymid");
+                        get_Gym_Information(gym_id);
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+
+    public void get_Gym_Information(String gym_id){
+        DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -64,13 +116,13 @@ public class GymInformation extends AppCompatActivity implements OnMapReadyCallb
                         TextView city = findViewById( R.id.info_gym_city_textview );
                         TextView phone = findViewById( R.id.info_gym_phone_textview );
 
-                        mon_hour.setText(group.get(0));
-                        tues_hour.setText(group.get(1));
-                        wed_hour.setText(group.get(2));
-                        thurs_hour.setText(group.get(3));
-                        fri_hour.setText(group.get(4));
-                        sat_hour.setText(group.get(5));
-                        sun_hour.setText(group.get(6));
+                        mon_hour.setText(group.get(1));
+                        tues_hour.setText(group.get(2));
+                        wed_hour.setText(group.get(3));
+                        thurs_hour.setText(group.get(4));
+                        fri_hour.setText(group.get(5));
+                        sat_hour.setText(group.get(6));
+                        sun_hour.setText(group.get(0));
 
                         street.setText(info.get("street").toString());
                         city.setText(info.get("city").toString());

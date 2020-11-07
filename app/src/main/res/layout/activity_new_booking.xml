@@ -18,14 +18,14 @@
         android:layout_width="154dp"
         android:layout_height="wrap_content"
         android:text="gymname" />
-
+<!--
     <Button
         android:id="@+id/booking_add_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add date"
 
-        />
+        /> -->
 
     <TextView
         android:id="@+id/booking_date_textview"
@@ -75,13 +75,6 @@
             android:text="@string/currentCap"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/button_cap_check"
-            android:layout_width="122dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:onClick="checkCapacityClick"
-            android:text="Check" />
     </TableRow>
 
 

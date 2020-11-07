@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GymInformation">
+    tools:context=".InformationActivity">
 
     <TextView
         android:id="@+id/info_hour_sun_textview"
@@ -14,7 +14,7 @@
         android:layout_marginEnd="1dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/info_hour_sat_textview"
-        app:layout_constraintTop_toBottomOf="@+id/info_hour_sat_textview"/>
+        app:layout_constraintTop_toBottomOf="@+id/info_hour_sat_textview" />
 
     <TextView
         android:id="@+id/textView4"
@@ -41,8 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="10dp"
-        tools:context=".GymInformation"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:context=".InformationActivity" />
 
     <TextView
         android:id="@+id/textView3"
@@ -51,9 +53,9 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="329dp"
         android:text="@string/info_covid"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -62,8 +64,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/info_hourTues"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView6"
@@ -116,9 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:text="@string/info_phone"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/info_gym_phone_textview"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toTopOf="@+id/info_gym_phone_textview" />
 
     <TextView
         android:id="@+id/textView12"
@@ -127,9 +128,9 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="29dp"
         android:text="@string/info_address"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/textView18"
@@ -137,9 +138,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:text="@string/info_capacity"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/info_gym_cap_textview"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/info_gym_cap_textview"
@@ -241,4 +242,14 @@
         app:layout_constraintBottom_toTopOf="@+id/info_hour_thur_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/info_hour_mon_textview" />
+
+    <TextView
+        android:id="@+id/info_gym_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginBottom="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

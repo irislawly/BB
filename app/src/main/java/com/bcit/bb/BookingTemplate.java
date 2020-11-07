@@ -7,6 +7,8 @@ public class BookingTemplate implements Serializable {
     private String timeslot;
     private String date;
     private String id;
+    private String gymname;
+    private String gymid;
 
     public String getEquipment() {
         return equipment;
@@ -22,11 +24,19 @@ public class BookingTemplate implements Serializable {
     public String getId() {
         return id;
     }
+    public String getGymname() {
+        return gymname;
+    }
+    public String getGymId() {
+        return gymname;
+    }
 
-    public BookingTemplate(String equipment, String timeslot, String date, String id) {
+    public BookingTemplate(String equipment, String timeslot, String date, String id, String gymname, String gymid) {
         this.equipment = equipment;
         this.timeslot = timeslot;
         this.date = date;
         this.id = id;
+        this.gymname = gymname;
+        this.gymid = gymid;
     }
 }

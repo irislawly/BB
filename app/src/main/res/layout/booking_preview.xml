@@ -11,6 +11,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <TextView
+                android:id="@+id/book_gymname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gymname" />
+
             <TextView
                 android:id="@+id/equipment11"
                 android:layout_width="match_parent"
@@ -28,7 +35,7 @@
 
             </TextView>
             <TextView
-                android:id="@+id/date11"
+                android:id="@+id/book_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Date">

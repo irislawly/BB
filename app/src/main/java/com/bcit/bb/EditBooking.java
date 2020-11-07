@@ -35,6 +35,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,23 +46,28 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
+    TextView booking_date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_booking);
-        Intent intent = getIntent();
+
 
         if (user != null) {
             get_Timeslots();
             get_Equipment();
+            Intent intent = getIntent();
+            String dateStr = intent.getStringExtra("date");
+            booking_date = findViewById(R.id.booking_date_textview_edit);
+
+            booking_date.setText(dateStr);
 
         } else {
             System.out.println("NOT LOGGED ON");
         }
 
-        Button button = (Button) findViewById(R.id.booking_add_date_edit);
+        Button button = findViewById(R.id.booking_add_date_edit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +99,7 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
                     if (document.exists()) {
                         Map<String, Object> info = document.getData();
                         TextView name = findViewById(R.id.booking_gym_name_textview_edit);
-                        name.setText(info.get("name").toString());
+                        name.setText(info.get("gymname").toString());
 
                         List<String> group = (List<String>) document.get("gymhours");
                         //Need to find which day it is to get the timeslots (2 hours)
@@ -247,8 +253,6 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
                                     hourOverlap = true;
                                 }
 
-
-
                             }
 
                             if(hourOverlap){
@@ -288,7 +292,7 @@ public class EditBooking extends AppCompatActivity implements DatePickerDialog.O
         reservation.put("equipid", equipId);
         reservation.put("timeslot", timeslot);
         reservation.put("id", id);
-        reservation.put("name", gym);
+        reservation.put("gymname", gym);
         reservation.put("date", date);
 
         Intent intent = getIntent();

@@ -22,7 +22,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -72,10 +72,9 @@
         android:id="@+id/compactcalendar_view"
         android:layout_width="351dp"
         android:layout_height="259dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         app:compactCalendarBackgroundColor="@android:color/white"
-        app:compactCalendarCurrentDayBackgroundColor="#ff00ff"
+        app:compactCalendarCurrentDayBackgroundColor="#2196F3"
+        app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
         app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccent"
         app:compactCalendarMultiEventIndicatorColor="#fff"
         app:compactCalendarTargetHeight="250dp"

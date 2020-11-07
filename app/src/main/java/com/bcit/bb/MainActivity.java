@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
     }
 
     public void read(){db.collection("users")
@@ -125,10 +123,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addUser(String name, String email, String uid) {
 
-        // Create a new user with a first and last name
+        // Create a new user with a first and last name, email, default gym and gymid
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
         user.put("email", email);
+        user.put("gymname", "BCIT Gym");
+        user.put("gymid", "adminTest");
 
         db.collection("users").document(uid)
                 .set(user)

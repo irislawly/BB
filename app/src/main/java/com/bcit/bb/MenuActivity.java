@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +27,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onGymInfoClick(View view) {
-        Intent intent = new Intent(this, GymInformation.class);
+        Intent intent = new Intent(this, InformationActivity.class);
         startActivity(intent);
     }
 

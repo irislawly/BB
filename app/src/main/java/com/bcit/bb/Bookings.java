@@ -12,11 +12,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
 
+import com.bcit.bb.adapters.BookingAdapter;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,21 +25,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -71,15 +67,15 @@ public class Bookings extends AppCompatActivity {
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
 
         String monthString = new DateFormatSymbols().getMonths()[d.getMonth()];
-        String yearString = " " + 2020;
+        String yearString = " " + (d.getYear()+1900);
         calMonth = findViewById(R.id.month_title);
-        calMonth.setText(monthString + yearString);
+        calMonth.setText(monthString.substring(0,3) + yearString);
         // to post all user's timeslot current  setQueue();
         highlightCalendarEvents();
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onDayClick(Date dateClicked) {
+            public void onDayClick(final Date dateClicked) {
                 listItems = new ArrayList<>();
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
 
@@ -107,13 +103,15 @@ public class Bookings extends AppCompatActivity {
                                     String temp_timeslot = (String) document.getData().get("timeslot");
                                     Log.d("debug", (String) document.getData().get("timeslot"));
 
-                                    BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id);
+                                    String temp_gymname = (String) document.getData().get("gymname");
+                                    String temp_gymid = (String) document.getData().get("gymid");
+                                    BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id, temp_gymname, temp_gymid);
                                     listItems.add(book123);
                                     Log.d("debug", document.getId() + " => " + document.getData());
                                 } else {
                                     Log.d(TAG, "No such document");
                                 }
-                                adapter = new currentBookingAdapter(listItems, getApplicationContext());
+                                adapter = new BookingAdapter(listItems, getApplicationContext());
                                 recyclerView.setAdapter(adapter);
                             } else {
                                 Log.d(TAG, "get failed with ", task.getException());
@@ -122,6 +120,21 @@ public class Bookings extends AppCompatActivity {
                     });
                 }
                 Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + events);
+                Button addButt = findViewById(R.id.buttonAdd);
+                addButt.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), NewBooking.class);
+                        intent.putExtra("date", dateClicked);
+                        intent.putExtra("weekday", dateClicked.getDay());
+
+                     //   String d = " ";
+                        String s = " " + dateClicked.getDay();
+                        Log.d(TAG,s);
+                        startActivity(intent);
+                    }
+                });
+
+
             }
 
             @Override
@@ -130,7 +143,7 @@ public class Bookings extends AppCompatActivity {
                 String monthString = new DateFormatSymbols().getMonths()[month];
                 String yearString = " " + 2020;
                 Log.d(TAG, "Month was scrolled to: " + monthString);
-                calMonth.setText(monthString + yearString);
+                calMonth.setText(monthString.substring(0,3)  + yearString);
 
             }
         });
@@ -178,18 +191,18 @@ public class Bookings extends AppCompatActivity {
         compactCalendarView.scrollLeft();
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
         String monthString = new DateFormatSymbols().getMonths()[d.getMonth()];
-        String yearString = " " + 2020;
+        String yearString = " " + (d.getYear()+1900);
         Log.d(TAG, "Month was scrolled to: " + monthString);
-        calMonth.setText(monthString + yearString);
+        calMonth.setText(monthString.substring(0,3) + yearString);
     }
 
     public void nextMonthClick(View view) {
         compactCalendarView.scrollRight();
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
         String monthString = new DateFormatSymbols().getMonths()[d.getMonth()];
-        String yearString = " " + 2020;
+        String yearString = " " + (d.getYear()+1900);
         Log.d(TAG, "Month was scrolled to: " + monthString);
-        calMonth.setText(monthString + yearString);
+        calMonth.setText(monthString.substring(0,3) + yearString);
     }
 
     public long milliseconds(String date) {
@@ -208,19 +221,20 @@ public class Bookings extends AppCompatActivity {
         return 0;
     }
 
-    public void onAddBookingClick(View view) {
-        Intent intent = new Intent(this, AddNewBooking.class);
-        startActivity(intent);
-    }
 
-    //not working yet need to edit currentingboooking adapter class
+
+    //need to edit
     public void onEditBookingClick(View view) {
         Intent intent = new Intent(this, EditBooking.class);
         Log.d("debug", " Edit pressed");
         TextView timeslotID = findViewById(R.id.timeslotID);
+        TextView book_date = findViewById(R.id.book_date);
+        String dateStr = book_date.getText().toString();
         String idStr = timeslotID.getText().toString();
         Log.d("debugDelete", idStr);
         intent.putExtra("id", idStr);
+        intent.putExtra("date", dateStr);
+
         startActivity(intent);
     }
 
@@ -291,12 +305,14 @@ public class Bookings extends AppCompatActivity {
 
                                 String temp_timeslot = (String) document.getData().get("timeslot");
                                 Log.d("debug", (String) document.getData().get("timeslot"));
+                                String temp_gymname = (String) document.getData().get("gymname");
 
-                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id);
+                                String temp_gymid = (String) document.getData().get("gymid");
+                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id, temp_gymname, temp_gymid );
                                 listItems.add(book123);
                                 Log.d("debug", document.getId() + " => " + document.getData());
                             }
-                            adapter = new currentBookingAdapter(listItems, getApplicationContext());
+                            adapter = new BookingAdapter(listItems, getApplicationContext());
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.d("debug", "Error getting documents: ", task.getException());

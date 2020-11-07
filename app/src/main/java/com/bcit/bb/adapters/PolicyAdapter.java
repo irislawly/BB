@@ -1,4 +1,4 @@
-package com.bcit.bb;
+package com.bcit.bb.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bcit.bb.R;
 
 import java.util.ArrayList;
 
