@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".YourAccountActivity"
-    android:orientation="vertical"
     android:padding="@dimen/inner_frame_layout_padding">
 
+    <LinearLayout
+        android:id="@+id/info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/username"
         android:layout_width="match_parent"
@@ -28,11 +32,16 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
+    </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:src="@drawable/edit_icon"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/info_layout"
+        android:layout_alignParentRight="true"/>
 
-</LinearLayout>
+</RelativeLayout>

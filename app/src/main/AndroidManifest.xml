@@ -17,15 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".YourAccountActivity"
-            android:label="Your Account">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -66,6 +57,9 @@
             android:name=".InformationActivity"
             android:label="Gym Information"
             android:parentActivityName=".MenuActivity" />
+        <activity
+            android:name=".YourAccountActivity"
+            android:label="Your Account"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
