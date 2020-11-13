@@ -11,79 +11,80 @@
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal|top|center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:id="@+id/booking_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:text="@string/booking_title"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:onClick="onAddBookingClick"
-            android:paddingLeft="10dp"
-            android:text="@string/booking_add" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|center_horizontal|top|center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
+        android:padding="@dimen/inner_frame_layout_padding">
 
         <Button
             android:id="@+id/month_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/arrow_btn_height"
             android:onClick="prevMonthClick"
-            android:text="L" />
+            android:text="&#60;"
+            android:layout_weight="1"
+            android:textSize="23sp"
+            android:textAlignment="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/month_title"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:text="Month"
-
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimaryDark"/>
 
 
         <Button
             android:id="@+id/month_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:layout_height="@dimen/arrow_btn_height"
             android:onClick="nextMonthClick"
-            android:text="R" />
+            android:layout_weight="1"
+            android:text="&#62;"
+            android:textSize="23sp"
+            android:textAlignment="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         android:id="@+id/compactcalendar_view"
-        android:layout_width="351dp"
+        android:layout_width="wrap_content"
         android:layout_height="259dp"
-        app:compactCalendarBackgroundColor="@android:color/white"
+        app:compactCalendarBackgroundColor="#66000000"
         app:compactCalendarCurrentDayBackgroundColor="#2196F3"
         app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
         app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccent"
-        app:compactCalendarMultiEventIndicatorColor="#fff"
+        app:compactCalendarMultiEventIndicatorColor="@color/colorPrimaryDark"
         app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextColor="@color/colorPrimaryDark"
-        app:compactCalendarTextSize="12sp" />
+        app:compactCalendarTextColor="#FFFFFF"
+        app:compactCalendarTextSize="16sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_light_frame"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/add_icon"
+        android:contentDescription="@string/new_booking_add"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:background="#FFFFFF"
+        android:onClick="onAddBookingClick"/>
 
 </LinearLayout>

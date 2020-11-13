@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -48,7 +49,7 @@ public class BookingActivity extends AppCompatActivity {
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
- private  Button addButt;
+ private FloatingActionButton addButt;
     private ArrayList<BookingTemplate> listItems;
     private CompactCalendarView compactCalendarView;
     private TextView calMonth;
@@ -63,6 +64,7 @@ public class BookingActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.item_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setVisibility(View.INVISIBLE);
         addButt = findViewById(R.id.buttonAdd);
         compactCalendarView = findViewById(R.id.compactcalendar_view);
 
@@ -120,6 +122,7 @@ public class BookingActivity extends AppCompatActivity {
                                 }
                                 adapter = new BookingAdapter(listItems, getApplicationContext());
                                 recyclerView.setAdapter(adapter);
+                                recyclerView.setVisibility(View.VISIBLE);
                             } else {
                                 Log.d(TAG, "get failed with ", task.getException());
                             }
@@ -129,6 +132,7 @@ public class BookingActivity extends AppCompatActivity {
                     listItems.clear();
                     adapter = new BookingAdapter(listItems, getApplicationContext());
                     recyclerView.setAdapter(adapter);
+                    recyclerView.setVisibility(View.VISIBLE);
                     Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + events);
               //      Button addButt = findViewById(R.id.buttonAdd);
                     addButt.setOnClickListener(new View.OnClickListener() {
@@ -316,8 +320,10 @@ public class BookingActivity extends AppCompatActivity {
                             }
                             adapter = new BookingAdapter(listItems, getApplicationContext());
                             recyclerView.setAdapter(adapter);
+                            recyclerView.setVisibility(View.VISIBLE);
                         } else {
                             Log.d("debug", "Error getting documents: ", task.getException());
+                            recyclerView.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
