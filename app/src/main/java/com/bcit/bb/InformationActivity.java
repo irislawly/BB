@@ -99,7 +99,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
 
         DocumentReference docRef = db.collection("admins").document(gym_id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {

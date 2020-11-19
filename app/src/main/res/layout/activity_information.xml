@@ -1,255 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InformationActivity">
-
+    tools:context=".InformationActivity"
+    android:orientation="vertical"
+    android:padding="@dimen/inner_frame_layout_padding">
     <TextView
-        android:id="@+id/info_hour_sun_textview"
+        android:id="@+id/info_gym_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="1dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/info_hour_sat_textview"
-        app:layout_constraintTop_toBottomOf="@+id/info_hour_sat_textview" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/info_hourMon"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_size_header"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"/>
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:layout_marginTop="@dimen/label_width"
+        android:layout_marginBottom="@dimen/label_width"
         tools:context=".InformationActivity" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/covid_hours_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="329dp"
         android:text="@string/info_covid"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="@dimen/text_size_header2"/>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/info_hourTues"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/info_hourWed"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <TextView
+            android:id="@+id/monday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourMon"
+            android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/info_hourThurs"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/info_hourFri"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintStart_toStartOf="@+id/textView9" />
+        <TextView
+            android:id="@+id/info_hour_mon_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:text="@string/info_hourSat"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintStart_toStartOf="@+id/textView10" />
+        <TextView
+            android:id="@+id/tuesday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourTues"
+            android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/info_hour_tues_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="22dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
+
+        <TextView
+            android:id="@+id/wednesday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourWed"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/info_hour_wed_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
+
+        <TextView
+            android:id="@+id/thursday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourThurs"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/info_hour_thur_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
+
+        <TextView
+            android:id="@+id/friday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourFri"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/info_hour_fri_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
+
+        <TextView
+            android:id="@+id/saturday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourSat"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/info_hour_sat_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="start"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
+    <TextView
+        android:id="@+id/sunday_label"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="wrap_content"
         android:text="@string/info_hourSun"
-        app:layout_constraintEnd_toStartOf="@+id/info_hour_sun_textview"
-        app:layout_constraintTop_toTopOf="@+id/info_hour_sun_textview" />
+        android:layout_weight="1"/>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/info_hour_sun_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_weight="5.5"
+        android:layout_gravity="start"
+        android:textAlignment="textStart"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+    <TextView
+        android:id="@+id/phonenumber_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/info_phone"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/info_gym_phone_textview" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="29dp"
-        android:text="@string/info_address"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:text="@string/info_capacity"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/info_gym_cap_textview"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/info_gym_cap_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="38dp"
-        android:text="25"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView18" />
+        android:textSize="@dimen/text_size_header2"
+        android:layout_marginRight="@dimen/label_width"/>
 
     <TextView
         android:id="@+id/info_gym_phone_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="23dp"
-        android:text=" (604) 432-8379"
-        app:layout_constraintBottom_toTopOf="@+id/info_gym_street_textview"
-        app:layout_constraintEnd_toEndOf="@+id/info_gym_street_textview" />
+        android:layout_height="wrap_content"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_address"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_header2"
+            android:layout_marginRight="@dimen/label_width"/>
+        <TextView
+            android:id="@+id/info_gym_street_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/info_gym_city_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_frame_layout_padding">
     <TextView
-        android:id="@+id/info_gym_street_textview"
+        android:id="@+id/max_capacity_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="3700 Willingdon Ave"
-        app:layout_constraintBottom_toTopOf="@+id/info_gym_city_textview"
-        app:layout_constraintStart_toStartOf="@+id/info_gym_city_textview" />
-
+        android:text="@string/info_capacity"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_header2"
+        android:layout_marginRight="@dimen/label_width"/>
     <TextView
-        android:id="@+id/info_gym_city_textview"
+        android:id="@+id/info_gym_cap_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="29dp"
-        android:text="BBY, bc"
-        app:layout_constraintBottom_toTopOf="@+id/info_gym_cap_textview"
-        app:layout_constraintEnd_toStartOf="@+id/info_hour_sat_textview"
-        app:layout_constraintStart_toEndOf="@+id/textView11" />
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/info_hour_mon_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/info_hourMon"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/info_hour_tues_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/info_hour_mon_textview"
-        app:layout_constraintTop_toBottomOf="@+id/info_hour_mon_textview" />
-
-    <TextView
-        android:id="@+id/info_hour_wed_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/info_hour_tues_textview"
-        app:layout_constraintTop_toBottomOf="@+id/info_hour_tues_textview" />
-
-    <TextView
-        android:id="@+id/info_hour_thur_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="11dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/info_hour_wed_textview"
-        app:layout_constraintTop_toBottomOf="@+id/info_hour_wed_textview" />
-
-    <TextView
-        android:id="@+id/info_hour_fri_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/info_hour_sat_textview"
-        app:layout_constraintEnd_toEndOf="@+id/info_hour_sat_textview" />
-
-    <TextView
-        android:id="@+id/info_hour_sat_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="91dp"
-        android:layout_marginBottom="30dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/info_hour_thur_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/info_hour_mon_textview" />
-
-    <TextView
-        android:id="@+id/info_gym_name_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginBottom="3dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

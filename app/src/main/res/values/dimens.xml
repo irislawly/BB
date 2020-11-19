@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_size_policy_header">20sp</dimen>
-    <dimen name="text_size_policy_header2">15sp</dimen>
+    <dimen name="text_size_header">20sp</dimen>
+    <dimen name="text_size_header2">15sp</dimen>
     <dimen name="text_size_policy_items">15sp</dimen>
     <dimen name="padding_policy">10dp</dimen>
     <dimen name="btn_width">100dp</dimen>
@@ -20,4 +20,6 @@
     <dimen name="inner_frame_layout_padding">5dp</dimen>
 
     <dimen name="arrow_btn_height">30dp</dimen>
+
+    <dimen name="label_width">20dp</dimen>
 </resources>

@@ -6,4 +6,6 @@
     <color name="colorPrimaryDark">#002447</color>
     <!-- LOGIN BUTTONS -->
     <color name="colorAccent">#f2ca00</color>
+
+    <color name="textColor">#000000</color>
 </resources>

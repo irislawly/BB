@@ -13,8 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/policy_header"
-        android:textSize="@dimen/text_size_policy_header"
-        android:textStyle="bold"/>
+        android:textSize="@dimen/text_size_header"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/policy_list"
