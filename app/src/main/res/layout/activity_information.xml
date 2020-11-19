@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:text="@string/info_covid"
         android:textStyle="bold"
-        android:textSize="@dimen/text_size_header2"/>
+        android:textSize="@dimen/text_size_header2"
+        android:textColor="@color/textColor"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +45,8 @@
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourMon"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
 
         <TextView
@@ -52,21 +54,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/tuesday_label"
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourTues"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/info_hour_tues_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
     </LinearLayout>
 
     <LinearLayout
@@ -80,28 +85,32 @@
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourWed"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/info_hour_wed_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/thursday_label"
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourThurs"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/info_hour_thur_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
 
     </LinearLayout>
     <LinearLayout
@@ -115,28 +124,32 @@
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourFri"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/info_hour_fri_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/saturday_label"
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:text="@string/info_hourSat"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/info_hour_sat_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"/>
 
     </LinearLayout>
     <LinearLayout
@@ -144,20 +157,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/inner_frame_layout_padding">
-    <TextView
-        android:id="@+id/sunday_label"
-        android:layout_width="@dimen/label_width"
-        android:layout_height="wrap_content"
-        android:text="@string/info_hourSun"
-        android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/sunday_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/info_hourSun"
+            android:layout_weight="1"
+            android:textColor="@color/textColor"/>
 
-    <TextView
-        android:id="@+id/info_hour_sun_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5.5"
-        android:layout_gravity="start"
-        android:textAlignment="textStart"/>
+        <TextView
+            android:id="@+id/info_hour_sun_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"/>
     </LinearLayout>
 
     <LinearLayout
@@ -172,12 +187,14 @@
         android:text="@string/info_phone"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_header2"
-        android:layout_marginRight="@dimen/label_width"/>
+        android:layout_marginRight="@dimen/label_width"
+        android:textColor="@color/textColor"/>
 
     <TextView
         android:id="@+id/info_gym_phone_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"/>
 
     </LinearLayout>
     <LinearLayout
@@ -192,15 +209,18 @@
             android:text="@string/info_address"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_header2"
-            android:layout_marginRight="@dimen/label_width"/>
+            android:layout_marginRight="@dimen/label_width"
+            android:textColor="@color/textColor"/>
         <TextView
             android:id="@+id/info_gym_street_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"/>
         <TextView
             android:id="@+id/info_gym_city_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"/>
     </LinearLayout>
 
     <LinearLayout
@@ -208,18 +228,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/inner_frame_layout_padding">
-    <TextView
-        android:id="@+id/max_capacity_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/info_capacity"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_size_header2"
-        android:layout_marginRight="@dimen/label_width"/>
-    <TextView
-        android:id="@+id/info_gym_cap_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/max_capacity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_capacity"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_header2"
+            android:layout_marginRight="@dimen/label_width"
+            android:textColor="@color/textColor"/>
+        <TextView
+            android:id="@+id/info_gym_cap_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"/>
     </LinearLayout>
 
 

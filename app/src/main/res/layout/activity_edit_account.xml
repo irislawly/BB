@@ -15,10 +15,11 @@
             android:id="@+id/username_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="51dp"
-            android:layout_weight="1"/>
+            android:text="@string/username_label"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_size_header"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/username_field"
@@ -33,9 +34,10 @@
     </LinearLayout>
 
     <Button
-        android:layout_gravity="end"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/label_width"
+        android:layout_gravity="center"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="@string/update_btn"
-        android:onClick="onUpdateUsername"/>
+        android:onClick="onUpdateUsername" />
 </LinearLayout>

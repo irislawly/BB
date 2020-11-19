@@ -40,7 +40,7 @@
     <string name="policy_header">Please note there are currently additional safety protocols in place as we reopen during the COVID-19 pandemic. Where these rules differ from what’s listed below, the BCIT\'s Healthy protocols will take priority.</string>
 
     <!-- Edit Account Activity -->
-    <string name="edit_username_hint">First name Last name</string>
+    <string name="edit_username_hint">Firstname Lastname</string>
     <string name="update_btn">Update</string>
 
     <!-- Booking information -->
@@ -55,6 +55,8 @@
 
     <!-- Adding new booking information -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_time">Choose time:</string>
+    <string name="selection_hint">Select up to 4</string>
 
 
     <string name="edit_booking">Edit Booking</string>
@@ -72,5 +74,16 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+
+    <!-- YourAccountActivity-->
+    <string name="username_label">User name</string>
+    <!-- Silly motivation slogan for YourAccountActivity-->
+    <string-array name="slogans">
+        <item>\"Do you even Book bro?!\"</item>
+        <item>\"No book. No bulk.\"</item>
+        <item>\"Booking is the lifestyle.\"</item>
+        <item>\"First rule of the Booking club, please share about the Booking club.\"</item>
+        <item>\"Booking is the way.\"</item>
+    </string-array>
 
 </resources>

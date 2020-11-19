@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size_header">20sp</dimen>
+    <dimen name="text_size_header0">35sp</dimen>
     <dimen name="text_size_header2">15sp</dimen>
     <dimen name="text_size_policy_items">15sp</dimen>
     <dimen name="padding_policy">10dp</dimen>

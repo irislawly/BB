@@ -17,14 +17,15 @@
                 android:id="@+id/book_gymname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gymname" />
+                android:textSize="@dimen/text_size_header"
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:id="@+id/equipment11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Equipment">
+                android:textColor="@color/textColor">
 
             </TextView>
 
@@ -32,14 +33,14 @@
                 android:id="@+id/timeslot11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Timeslot">
+                android:textColor="@color/textColor">
 
             </TextView>
             <TextView
                 android:id="@+id/book_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date">
+                android:textColor="@color/textColor">
 
             </TextView>
 
@@ -55,7 +56,8 @@
                 android:onClick="onEditBookingClick"
                 android:text="@string/booking_edit"
                 android:layout_height="wrap_content"
-                android:elevation="5dp"/>
+                android:elevation="5dp"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/deleteBooking1"
@@ -63,13 +65,13 @@
                 android:layout_height="wrap_content"
                 android:onClick="onDeleteBookingClick"
                 android:text="@string/booking_delete"
-                android:elevation="5dp"/>
+                android:elevation="5dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/timeslotID"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="TextView" />
+                android:layout_height="0dp"/>
 
             </LinearLayout>
 
