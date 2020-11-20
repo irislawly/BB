@@ -41,6 +41,7 @@
 
     <!-- Edit Account Activity -->
     <string name="edit_username_hint">Firstname Lastname</string>
+    <string name="edit_acc">Edit Account</string>
     <string name="update_btn">Update</string>
     <string name="change_btn">Change</string>
 

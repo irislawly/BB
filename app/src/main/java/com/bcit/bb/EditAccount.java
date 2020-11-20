@@ -35,7 +35,6 @@ public class EditAccount extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.activity_edit_account, null);
         builder.setView(view)
-                .setTitle("Login")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
