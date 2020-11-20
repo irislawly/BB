@@ -32,8 +32,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onAccClick(View view) {
-        Intent intent = new Intent(this, YourAccountActivity.class);
-        startActivity(intent);
+        YourAccountActivity youracc = new YourAccountActivity();
+        youracc.show(getSupportFragmentManager(), "your account dialog");
     }
 
     public void onGymSignoutClick(View view) {

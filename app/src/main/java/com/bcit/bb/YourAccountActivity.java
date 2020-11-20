@@ -3,24 +3,19 @@ package com.bcit.bb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 
-import android.content.Context;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,25 +31,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class YourAccountActivity extends AppCompatActivity {
+public class YourAccountActivity extends AppCompatDialogFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference idsRef = db.collection("users");
     String TAG = "debug";
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String[] slogans;
     TextView slogan_tv;
+    ImageButton editbtn;
+    View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_account);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        view = inflater.inflate(R.layout.activity_your_account, null);
+        builder.setView(view)
+                .setTitle("Your Account")
+                .setPositiveButton("done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         slogans = getResources().getStringArray(R.array.slogans);
-        slogan_tv = findViewById(R.id.slogan_textview);
-
+        slogan_tv = view.findViewById(R.id.slogan_textview);
+        editbtn = view.findViewById(R.id.edit_btn);
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEditAccountClick(view);
+            }
+        });
         get_user_info();
         get_choice();
         updateSlogan();
+
+        return builder.create();
     }
 
     public void get_user_info(){
@@ -62,8 +76,8 @@ public class YourAccountActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                TextView username = findViewById(R.id.username);
-                TextView email = findViewById(R.id.email);
+                TextView username = view.findViewById(R.id.username);
+                TextView email = view.findViewById(R.id.email);
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
@@ -92,10 +106,10 @@ public class YourAccountActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         List<String> choices = new ArrayList<>();
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, choices);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, choices);
                         Spinner spinner;
 
-                        spinner = findViewById(R.id.gym_choice_spinner);
+                        spinner = view.findViewById(R.id.gym_choice_spinner);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner.setAdapter(adapter);
                         if (task.isSuccessful()) {
@@ -113,8 +127,8 @@ public class YourAccountActivity extends AppCompatActivity {
     }
 
     public void onEditAccountClick(View view) {
-        Intent intent = new Intent(this, EditAccount.class);
-        startActivity(intent);
+        EditAccount editacc = new EditAccount();
+        editacc.show(getParentFragmentManager(), "edit your account");
     }
 
     private void updateSlogan() {

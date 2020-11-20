@@ -32,12 +32,4 @@
 
 
     </LinearLayout>
-
-    <Button
-        android:layout_marginTop="@dimen/label_width"
-        android:layout_gravity="center"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/update_btn"
-        android:onClick="onUpdateUsername" />
 </LinearLayout>
