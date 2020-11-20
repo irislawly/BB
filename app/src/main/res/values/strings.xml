@@ -42,6 +42,7 @@
     <!-- Edit Account Activity -->
     <string name="edit_username_hint">Firstname Lastname</string>
     <string name="update_btn">Update</string>
+    <string name="change_btn">Change</string>
 
     <!-- Booking information -->
     <string name="booking_title">Current Bookings</string>

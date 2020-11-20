@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class YourAccountActivity extends AppCompatDialogFragment {
     String[] slogans;
     TextView slogan_tv;
     ImageButton editbtn;
+    Button changebtn;
     View view;
 
     @Override
@@ -67,6 +69,13 @@ public class YourAccountActivity extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 onEditAccountClick(view);
+            }
+        });
+        changebtn = view.findViewById(R.id.changebtn);
+        changebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onWriteToDatabase(v);
             }
         });
         get_user_info();
@@ -148,7 +157,7 @@ public class YourAccountActivity extends AppCompatDialogFragment {
     public void onWriteToDatabase(View v) {
         Spinner spin = view.findViewById(R.id.gym_choice_spinner);
         String gymchoice = spin.getSelectedItem().toString();
-        Toast toast=Toast. makeText(getContext(),"Butt clicked " + gymchoice, Toast. LENGTH_SHORT);
+        Toast toast =Toast. makeText(getContext(),"Butt clicked " + gymchoice, Toast. LENGTH_SHORT);
         toast.show();
         db.collection("admins")
                 .whereEqualTo("gymname", gymchoice)
