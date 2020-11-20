@@ -170,9 +170,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5.5"
-            android:layout_gravity="start"
             android:textAlignment="textStart"
-            android:textColor="@color/textColor"/>
+            android:textColor="@color/textColor" />
     </LinearLayout>
 
     <LinearLayout
@@ -216,11 +215,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"/>
+
         <TextView
             android:id="@+id/info_gym_city_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColor"/>
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/textColor" />
     </LinearLayout>
 
     <LinearLayout

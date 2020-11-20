@@ -3,6 +3,8 @@ package com.bcit.bb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,7 +14,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +29,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -32,16 +37,15 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
     private GoogleMap mMap;
-    float zoomLevel = 13.0f;
+    float zoomLevel = 15.0f;
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private String gym_id_global;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-         get_Gym_Id();
+        get_Gym_Id();
         get_Gym_Choice();
-        Log.d(TAG, "Gloabl " + gym_id_global);
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -96,8 +100,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void get_Gym_Information(String gym_id){
-
-
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -120,6 +122,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                         TextView street = findViewById( R.id.info_gym_street_textview );
                         TextView city = findViewById( R.id.info_gym_city_textview );
                         TextView phone = findViewById( R.id.info_gym_phone_textview );
+                        TextView gymname = findViewById( R.id.info_gym_name_textview);
+
 
                         mon_hour.setText(group.get(1));
                         tues_hour.setText(group.get(2));
@@ -133,6 +137,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                         city.setText(info.get("city").toString());
                         max_cap.setText(info.get("maxcap").toString());
                         phone.setText(info.get("phone").toString());
+                        gymname.setText(info.get("gymname").toString());
+
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -144,6 +150,80 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         });
 
     }
+
+    public void get_address(){
+
+        DocumentReference docRef = db.collection("users").document(currentuser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String gym_id = (String) document.getData().get("gymid");
+                        get_Address(gym_id);
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+    public void get_Address(String gym_id){
+        DocumentReference docRef = db.collection("admins").document(gym_id);
+        docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String, Object> info = document.getData();
+                        String street = info.get("street").toString();
+                        String city = info.get("city").toString();
+                        String gymname = info.get("gymname").toString();
+
+
+
+                        Log.d(TAG, "street " + street);
+                        String add= street + " " + city;
+                        Geocoder coder = new Geocoder(getApplicationContext());
+                        List<Address> address;
+                        try {
+
+                            address = coder.getFromLocationName(add,5);
+
+                            if (address == null) {
+                                return;
+                            }
+                            Address location=address.get(0);
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            Log.d(TAG, "Lat lng" + latLng.toString());
+
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(gymname));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+                        } catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+
+
 
     /**
      * Manipulates the map once available.
@@ -157,11 +237,9 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        get_address();
 
-        // Add a marker in BCIT recreation center and move the camera
-        LatLng bcit = new LatLng(49.248920, -123.000693);
-        mMap.addMarker(new MarkerOptions().position(bcit).title("BCIT Recreation Center"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bcit, zoomLevel));
     }
+
 
 }
