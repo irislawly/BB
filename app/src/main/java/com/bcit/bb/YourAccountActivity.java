@@ -1,28 +1,21 @@
 package com.bcit.bb;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,7 +26,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class YourAccountActivity extends AppCompatActivity {
@@ -125,4 +120,53 @@ public class YourAccountActivity extends AppCompatActivity {
 
         slogan_tv.setText(slogans[generatedIndex]);
     }
+
+    public void onWriteToDatabase(View v) {
+        Spinner spin = findViewById(R.id.gym_choice_spinner);
+        String gymchoice = spin.getSelectedItem().toString();
+        Toast toast=Toast. makeText(getApplicationContext(),"Butt clicked " + gymchoice, Toast. LENGTH_SHORT);
+        toast.show();
+        db.collection("admins")
+                .whereEqualTo("gymname", gymchoice)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                TextView name = findViewById(R.id.username);
+                                TextView email = findViewById(R.id.email);
+                                Map<String, Object> user = new HashMap<>();
+
+                                user.put("gymchoice", document.get("gymname").toString());
+                                user.put("gymid", document.getId());
+                                //These variables are needed to update the document, otherwise it'll disappear
+                                user.put("name" ,name.getText().toString());
+                                user.put("email", email.getText().toString());
+
+                                db.collection("users").document(currentuser)
+                                        .set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully rewritten!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error writing document", e);
+                                            }
+                                        });
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+    }
+
 }

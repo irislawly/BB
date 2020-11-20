@@ -58,4 +58,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/label_width"/>
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/edit_btn"
+        android:onClick="onWriteToDatabase"
+        android:text="change" />
+
 </RelativeLayout>
