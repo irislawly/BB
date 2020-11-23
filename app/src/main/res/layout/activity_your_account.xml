@@ -1,85 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".YourAccountActivity">
-
-    <TextView
-        android:id="@+id/custom_dialog_title_youracc"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/your_acc"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_header"
-        android:textStyle="bold"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"/>
+        android:layout_height="match_parent"
+        tools:context=".YourAccountActivity">
 
-    <LinearLayout
-        android:id="@+id/info_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/inner_frame_layout_padding"
-        android:layout_below="@+id/custom_dialog_title_youracc"
-        android:padding="@dimen/inner_frame_layout_padding">
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/textColor"
-        android:textSize="@dimen/text_size_header"
-        android:layout_marginBottom="@dimen/inner_frame_layout_padding" />
+        <TextView
+            android:id="@+id/custom_dialog_title_youracc"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/your_acc"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_header"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"/>
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:textSize="15sp"/>
+        <LinearLayout
+            android:id="@+id/info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/inner_frame_layout_padding"
+            android:layout_below="@+id/custom_dialog_title_youracc"
+            android:padding="@dimen/inner_frame_layout_padding">
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/text_size_header"
+            android:layout_marginBottom="@dimen/inner_frame_layout_padding" />
 
-    <Spinner
-        android:id="@+id/gym_choice_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="15sp"/>
 
-    <ImageButton
-        android:id="@+id/edit_btn"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit_icon"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_below="@+id/info_layout"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/inner_frame_layout_padding"/>
+        <Spinner
+            android:id="@+id/gym_choice_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/changebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/edit_btn"
-        android:layout_toLeftOf="@+id/edit_btn"
-        android:layout_marginRight="@dimen/inner_frame_layout_padding"
-        android:text="@string/change_btn" />
+        <ImageButton
+            android:id="@+id/edit_btn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_icon"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_below="@+id/info_layout"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/inner_frame_layout_padding"/>
+
+        <Button
+            android:id="@+id/changebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/edit_btn"
+            android:layout_toLeftOf="@+id/edit_btn"
+            android:layout_marginRight="@dimen/inner_frame_layout_padding"
+            android:text="@string/change_btn" />
 
 
-    <TextView
-        android:id="@+id/slogan_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:textSize="@dimen/text_size_header"
-        android:textColor="@color/textColor"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:layout_below="@+id/edit_btn"
-        android:padding="@dimen/inner_frame_layout_padding"/>
+        <TextView
+            android:id="@+id/slogan_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="@dimen/text_size_header"
+            android:textColor="@color/textColor"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:layout_below="@+id/edit_btn"
+            android:padding="@dimen/inner_frame_layout_padding"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

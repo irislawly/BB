@@ -67,6 +67,9 @@
     <string name="new_booking_add">Add</string>
     <string name="new_booking_cancel">Cancel</string>
 
+    <string name="edit_booking_date">New date</string>
+    <string name="edit_booking_date_hint">Pick a date</string>
+    <string name="check_btn">Check</string>
     <string name="edit_booking_update">Update</string>
     <string name="edit_booking_cancel">Cancel</string>
     <string name="title_activity_maps">Map</string>

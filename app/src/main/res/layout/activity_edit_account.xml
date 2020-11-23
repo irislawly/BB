@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".EditAccount"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/custom_dialog_title_editacc"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/edit_acc"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_header"
-        android:textStyle="bold"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/inner_frame_layout_padding">
         <TextView
-            android:id="@+id/username_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username_label"
-            android:layout_weight="1"
+            android:id="@+id/custom_dialog_title_editacc"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/edit_acc"
+            android:textAlignment="center"
             android:textSize="@dimen/text_size_header"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"/>
 
-        <EditText
-            android:id="@+id/username_field"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/edit_username_hint"
-            android:inputType="textPersonName"
-            android:layout_weight="1"/>
+            android:orientation="horizontal"
+            android:padding="@dimen/inner_frame_layout_padding">
+            <TextView
+                android:id="@+id/username_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username_label"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_header"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/username_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/edit_username_hint"
+                android:inputType="textPersonName"
+                android:layout_weight="1"/>
 
 
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
