@@ -58,13 +58,6 @@
             android:name=".InformationActivity"
             android:label="Gym Information"
             android:parentActivityName=".MenuActivity" />
-        <activity
-            android:name=".YourAccountActivity"
-            android:label="Your Account"
-            android:parentActivityName=".MenuActivity"/>
-        <activity android:name=".EditAccount"
-            android:label="Edit Your Account"
-            android:parentActivityName=".YourAccountActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
