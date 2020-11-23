@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
         user.put("email", email);
-        user.put("gymname", "BCIT Gym");
+        user.put("gymname", "Renfrew Center");
         user.put("gymid", "adminTest");
 
         db.collection("users").document(uid)
