@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -215,9 +216,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                         name.setText(info.get("gymname").toString());
 
                         List<String> group = (List<String>) document.get("gymhours");
-                                String x = group.get(0);
-                        //Need to find which day it is to get the timeslots (2 hours)
-                        //get day,
+
                         String[] timeslots = getTimeslotInterval(group);
                         for (int i = 0; i < timeslots.length; i++) {
                             subjects.add(timeslots[i]);
@@ -237,9 +236,37 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
     public String[] getTimeslotInterval(List<String> group){
         Intent intent = getIntent();
         int day =  intent.getIntExtra("weekday", 0);
-        System.out.println("TESTIG " + group.get(day)+ " " + day);
-        String[] timeslots = {"9am - 11am", "11am - 1pm", "1am - 3pm", "3pm - 5pm",
-                "5pm - 7pm", "7pm - 9pm"};
+
+        String hours = group.get(day);
+        String start = hours.substring(0, hours.indexOf(" "));
+        String end = hours.substring(hours.indexOf("-") + 2);
+
+        int am = Integer.parseInt(start.substring(0, start.indexOf("a")));
+        int pm =  Integer.parseInt(end.substring(0, end.indexOf("p")));
+        pm += 12;
+
+        ArrayList<String> intervals = new ArrayList<String>();
+        for(int i = am ; i <= pm-2 ; i+=2){
+            String hr = "";
+            if(i > 12){
+                if(i == pm-3 && am+pm % 2 != 0 ){
+                     hr = "" + (i - 12) + "pm" + " - " + (i - 9) + "pm";
+
+                }else {
+                    hr = "" + (i - 12) + "pm" + " - " + (i - 10) + "pm";
+                }
+            }else if(i>10){
+                hr = "" + (i) + "am"  + " - " + (i-10) + "pm";
+
+            } else{
+                 hr = "" + (i) + "am"  + " - " + (i+2) + "am";
+
+            }
+            intervals.add(hr);
+
+        }
+        String[] timeslots = new String[intervals.size()];
+        timeslots = intervals.toArray(timeslots);
         return timeslots;
 
     }
@@ -356,7 +383,6 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
     }
 
     public void writeToDatabase(String date, String timeslot, String equipId, String equip, String id, String gym) {
-
         Map<String, Object> reservation = new HashMap<>();
         reservation.put("equip", equip);
         reservation.put("equipid", equipId);
@@ -364,7 +390,6 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
         reservation.put("id", id);
         reservation.put("gymname", gym);
         reservation.put("date", date);
-
 
         db.collection("bookings").document()
                 .set(reservation)
