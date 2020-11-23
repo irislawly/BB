@@ -107,7 +107,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                     String timeslot = spinTime.getSelectedItem().toString();
                     TextView cap = findViewById(R.id.current_cap_textview);
                     TextView gymname = findViewById(R.id.booking_gym_name_textview);
-
+                    String gymStr = gymname.getText().toString();
                     int capacity = 0;
 
                     @Override
@@ -116,7 +116,8 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 if (document.getData().get("date").equals(dateStr) &&
-                                        document.getData().get("timeslot").equals(timeslot)) {
+                                        document.getData().get("timeslot").equals(timeslot) &&
+                                        document.getData().get("gymname").equals(gymStr)) {
                                     capacity++;
                                 }
                             }
@@ -129,7 +130,6 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                                         if (document.exists()) {
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                             String gym_id = (String) document.getData().get("gymid");
-                                            //     String gym_id = "adminTest";
                                             DocumentReference adminRef = db.collection("admins").document(gym_id);
                                             adminRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
