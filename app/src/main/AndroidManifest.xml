@@ -44,11 +44,13 @@
         <activity
             android:name=".NewBookingActivity"
             android:label="New Booking"
-            android:parentActivityName=".BookingActivity" />
+            android:parentActivityName=".BookingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".EditBookingActivity"
             android:label="Edit Booking"
-            android:parentActivityName=".BookingActivity" />
+            android:parentActivityName=".BookingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".BookingActivity"
             android:label="Booking"
