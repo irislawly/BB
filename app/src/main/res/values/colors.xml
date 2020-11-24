@@ -8,4 +8,6 @@
     <color name="colorAccent">#f2ca00</color>
 
     <color name="textColor">#000000</color>
+
+    <color name="opacityBlack">#E6000000</color>
 </resources>

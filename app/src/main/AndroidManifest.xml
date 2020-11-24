@@ -55,7 +55,8 @@
             android:name=".BookingActivity"
             android:label="Booking"
             android:parentActivityName=".MenuActivity" />
-        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".MenuActivity"/>
         <activity
             android:name=".InformationActivity"
             android:label="Gym Information"
