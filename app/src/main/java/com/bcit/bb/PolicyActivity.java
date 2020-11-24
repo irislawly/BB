@@ -1,22 +1,30 @@
 package com.bcit.bb;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.bcit.bb.adapters.PolicyAdapter;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class PolicyActivity extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private static final String TAG = "PolicyActivity";
-    //private ArrayList<String> policyListHeaders = new ArrayList<>();
     private ArrayList<String> policyList = new ArrayList<>();
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,7 @@ public class PolicyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_policy);
         Log.d(TAG, "onCreate: started");
 
+        get_Gym_Choice();
         initPolicies();
     }
 
@@ -43,7 +52,7 @@ public class PolicyActivity extends AppCompatActivity {
 
         //policyListHeaders.add("Arriving & Signing-in");
         policyList.add("Please arrive no sooner than 10 minutes before your booked workout session, as late arrivals will not be permitted inside.");
-        policyList.add("Please have your booking information & valid BCIT student ID with you for confirmation's purposes.");
+        policyList.add("Please have your booking information & valid member ID with you for confirmation's purposes.");
 
         //policyListHeaders.add("Equipment");
         policyList.add("Equipment is booked based on first-come-first-serve policy.");
@@ -54,13 +63,12 @@ public class PolicyActivity extends AppCompatActivity {
         policyList.add("All members should continue to arrive changed and ready to workout whenever possible.");
 
         //policyListHeaders.add("Amenities");
-        policyList.add("BCIT Recreational washrooms, change rooms, showers, and workout lockers are available with restrictions and limited capacities.");
+        policyList.add("Gym's washrooms, change rooms, showers, and workout lockers are available with restrictions and limited capacities.");
         policyList.add("Members are to adhere to all directional signage, time limits and capacity limits in the change areas and showers.");
         policyList.add("Showers have re-opened with limited capacities; guests are encouraged to shower at home when possible.");
         policyList.add("Members must bring their own shower products to use in the shower spaces, no soap nor shampoo will be available.");
         policyList.add("Members must bring their own personal lock for locker use during their workout (locks will not be provided), and are responsible for removing the contents and lock immediately after their activity has concluded.");
 
-        //policyListHeaders.add("Thank you for using the BCIT Recreational facilities and Bookings&Bulking mobile application.");
         policyList.add("Please stay home if you are not feeling well.");
         policyList.add("No bookings. No bulking.");
 
@@ -73,5 +81,31 @@ public class PolicyActivity extends AppCompatActivity {
         PolicyAdapter adapter = new PolicyAdapter(policyList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void get_Gym_Choice(){
+        DocumentReference docRef = db.collection("users").document(currentuser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                TextView policy_header = findViewById(R.id.policy_header);
+                String str = "Please note there are currently additional safety protocols in place as we reopen during the COVID-19 pandemic. Where these rules differ from what’s listed below, the ";
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String gym_choice = (String) document.getData().get("gymchoice");
+                        str += gym_choice;
+                        str += "\'s Healthy protocols will take priority.";
+                        policy_header.setText(str);
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }
