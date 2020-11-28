@@ -83,7 +83,7 @@
             android:textColor="@color/textColor"
             android:layout_marginBottom="@dimen/inner_frame_layout_padding"/>
 
-        <com.bcit.bb.uiFeatures.MultiSelectionSpinner
+        <com.bcit.bb.features.MultiSelectionSpinner
             android:id="@+id/booking_spinner_equip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

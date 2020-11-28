@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class MenuActivity extends AppCompatActivity {
 
+    /**
+     * Runs app.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

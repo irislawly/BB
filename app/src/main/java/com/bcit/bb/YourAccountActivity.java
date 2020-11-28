@@ -1,7 +1,6 @@
 package com.bcit.bb;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import android.app.AlertDialog;
@@ -37,9 +36,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Account Activity of user to change gym and name.
+ */
 public class YourAccountActivity extends AppCompatDialogFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference idsRef = db.collection("users");
     String TAG = "debug";
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String[] slogans;
@@ -48,6 +49,11 @@ public class YourAccountActivity extends AppCompatDialogFragment {
     Button changebtn;
     View view;
 
+    /**
+     * Creates dialog box
+     * @param savedInstanceState state
+     * @return dialog
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -77,14 +83,17 @@ public class YourAccountActivity extends AppCompatDialogFragment {
                 onWriteToDatabase(v);
             }
         });
-        get_user_info();
-        get_choice();
+        getUserInfo();
+        getChoice();
         updateSlogan();
 
         return builder.create();
     }
 
-    public void get_user_info(){
+    /**
+     * Get user information.
+     */
+    public void getUserInfo(){
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -112,7 +121,10 @@ public class YourAccountActivity extends AppCompatDialogFragment {
         });
     }
 
-    public void get_choice() {
+    /**
+     * Get gym choice of user.
+     */
+    public void getChoice() {
         db.collection("admins")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -139,11 +151,18 @@ public class YourAccountActivity extends AppCompatDialogFragment {
                 });
     }
 
+    /**
+     * Event handler when edit button is clicked.
+     * @param view View
+     */
     public void onEditAccountClick(View view) {
         EditAccount editacc = new EditAccount();
         editacc.show(getParentFragmentManager(), "edit your account");
     }
 
+    /**
+     * Generates random slogans of Booking&Bulking.
+     */
     private void updateSlogan() {
         Random random = new Random();
 
@@ -153,6 +172,10 @@ public class YourAccountActivity extends AppCompatDialogFragment {
         slogan_tv.setText(slogans[generatedIndex]);
     }
 
+    /**
+     * Writes changes to the database.
+     * @param v View
+     */
     public void onWriteToDatabase(View v) {
         Spinner spin = view.findViewById(R.id.gym_choice_spinner);
         String gymchoice = spin.getSelectedItem().toString();
@@ -166,14 +189,13 @@ public class YourAccountActivity extends AppCompatDialogFragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 TextView name = view.findViewById(R.id.username);
                                 TextView email = view.findViewById(R.id.email);
                                 Map<String, Object> user = new HashMap<>();
 
                                 user.put("gymchoice", document.get("gymname").toString());
                                 user.put("gymid", document.getId());
-                                //These variables are needed to update the document, otherwise it'll disappear
+                                // These variables are needed to update the document, otherwise it'll disappear
                                 user.put("name" ,name.getText().toString());
                                 user.put("email", email.getText().toString());
 

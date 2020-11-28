@@ -11,28 +11,24 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity to display user's selected gym's information.
+ */
 public class InformationActivity extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
@@ -40,12 +36,16 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     float zoomLevel = 15.0f;
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    /**
+     * Runs app.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        get_Gym_Id();
-        get_Gym_Choice();
+        getGymId();
+        getGymChoice();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -54,7 +54,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     /**
      * Gets user's selected gym choice and generate info.
      */
-    public void get_Gym_Choice(){
+    public void getGymChoice(){
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -79,7 +79,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     /**
      * Gets the gym id of user's selected gym.
      */
-    public void get_Gym_Id(){
+    public void getGymId(){
 
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,7 +89,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         String gym_id = (String) document.getData().get("gymid");
-                        get_Gym_Information(gym_id);
+                        getGymInformation(gym_id);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -106,7 +106,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
      * Gets gym information such as hours, address, capacity, etc.
      * @param gym_id gym id
      */
-    public void get_Gym_Information(String gym_id){
+    public void getGymInformation(String gym_id){
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -161,7 +161,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     /**
      * Gets address for Google maps.
      */
-    public void get_Address(){
+    public void getAddress(){
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -170,7 +170,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         String gym_id = (String) document.getData().get("gymid");
-                        find_Address(gym_id);
+                        findAddress(gym_id);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -187,7 +187,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
      * Finds address with gym_id and looks it up for google maps.
      * @param gym_id gym id
      */
-    public void find_Address(String gym_id){
+    public void findAddress(String gym_id){
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -247,7 +247,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        get_Address();
+        getAddress();
 
     }
 

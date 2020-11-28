@@ -13,6 +13,7 @@
         android:layout_height="210dp"
         android:layout_marginStart="47dp"
         android:layout_marginEnd="47dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

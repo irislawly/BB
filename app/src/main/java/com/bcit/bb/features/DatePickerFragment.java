@@ -1,39 +1,43 @@
-package com.bcit.bb.uiFeatures;
+package com.bcit.bb.features;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
-
+/**
+ * Date picker fragment
+ * Source: https://stackoverflow.com/questions/14024921/retrieve-and-set-data-from-dialogfragment-datepicker
+ */
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
-
+    /**
+     * Creates calendar dialog.
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
+
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
-        // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(),  (DatePickerDialog.OnDateSetListener)getActivity(), year, month, day);
     }
 
+    /**
+     * Sets date.
+     * @param view v
+     * @param year year
+     * @param month month
+     * @param day day
+     */
     public void onDateSet(DatePicker view, int year, int month, int day) {
         String date = month + " " + day + ", " + year;
 

@@ -16,15 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bcit.bb.R;
 
 import java.util.ArrayList;
-/*
-Adapter class
+
+/**
+ * Booking adapter for hold reservation informaiton.
  */
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
-    private ArrayList<BookingTemplate> articleList;
+    private ArrayList<BookingTemplate> bookList;
     private Context context;
 
     public BookingAdapter(ArrayList<BookingTemplate> articleList, Context context) {
-        this.articleList = articleList;
+        this.bookList = articleList;
         this.context = context;
     }
 
@@ -36,23 +37,34 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         return new ViewHolder(v);
     }
 
-
+    /**
+     * Binds view holder.
+     * @param holder holder
+     * @param position position
+     */
     @Override
     public void onBindViewHolder(@NonNull BookingAdapter.ViewHolder holder, int position) {
-        final BookingTemplate booking = articleList.get(position);
+        final BookingTemplate booking = bookList.get(position);
         holder.equipment.setText(booking.getEquipment());
         holder.date.setText(booking.getDate());
         holder.timeslot.setText(booking.getTimeslot());
          holder.id.setText(booking.getId());
          holder.gymname.setText(booking.getGymname());
-        Log.d("DEBUG", "msg" + booking.getTimeslot());
 
     }
 
+    /**
+     * Get item count.
+     * @return item
+     */
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return bookList.size();
     }
+
+    /**
+     * View holder.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView equipment;
         public TextView timeslot;

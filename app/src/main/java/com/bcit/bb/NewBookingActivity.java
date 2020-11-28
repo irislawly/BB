@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bcit.bb.uiFeatures.MultiSelectionSpinner;
+import com.bcit.bb.features.MultiSelectionSpinner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,7 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,7 +71,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
         String dateStr = df.format(date);
 
         booking_date.setText(dateStr);
-        get_Gym();
+        getGym();
         Spinner spinner = (Spinner) findViewById(R.id.spinner_time);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -82,7 +81,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                 // TODO Auto-generated method stub
                 Spinner spinTime = (Spinner) findViewById(R.id.spinner_time);
                 if (!spinTime.getSelectedItem().toString().isEmpty()) {
-                    capacity_Listener();
+                    capacityListener();
                 }
 
             }
@@ -111,7 +110,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
      * Function to generate current capacity / number of other users that have booked the timeslot
      * as well.
      */
-    public void capacity_Listener() {
+    public void capacityListener() {
         db.collection("bookings")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -186,7 +185,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
     /**
      * Function to get gym name and set in TextView.
      */
-    public void get_Gym() {
+    public void getGym() {
 
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -197,8 +196,8 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         String gym_id = (String) document.getData().get("gymid");
-                        get_Timeslots(gym_id);
-                        get_Equipment(gym_id);
+                        getTimeslots(gym_id);
+                        getEquipment(gym_id);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -215,7 +214,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
      * Generate timeslots of a gym's certain day.
      * @param gym_id gym id
      */
-    public void get_Timeslots(String gym_id) {
+    public void getTimeslots(String gym_id) {
 
         DocumentReference docRef = db.collection("admins").document(gym_id);
 
@@ -272,20 +271,35 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
         pm += 12;
 
         ArrayList<String> intervals = new ArrayList<String>();
+        boolean even = true;
+        if(am+pm % 2 != 0)
+            even = false;
+
         for(int i = am ; i <= pm-2 ; i+=2){
+
             String hr = "";
             if(i > 12){
-                if(i == pm-3 && am+pm % 2 != 0 ){
+
+                if(i == pm-3 && !even ){
                      hr = "" + (i - 12) + "pm" + " - " + (i - 9) + "pm";
 
                 }else {
                     hr = "" + (i - 12) + "pm" + " - " + (i - 10) + "pm";
                 }
             }else if(i>10){
-                hr = "" + (i) + "am"  + " - " + (i-10) + "pm";
+                if(!even  && i==12){
+                    hr = "" + (i) + "pm"  + " - " + (i-10) + "pm";
+                }else {
+                    hr = "" + (i) + "am" + " - " + (i - 10) + "pm";
+                }
+            }
 
-            } else{
-                 hr = "" + (i) + "am"  + " - " + (i+2) + "am";
+            else{
+                if(!even && i==10){
+                    hr = "" + (i) + "am"  + " - " + (i+2) + "pm";
+                }else {
+                    hr = "" + (i) + "am" + " - " + (i + 2) + "am";
+                }
 
             }
             intervals.add(hr);
@@ -319,7 +333,7 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
      * Function to generate gym equipment onto the spinner for user to pick.
      * @param gym_id gym id
      */
-    public void get_Equipment(String gym_id) {
+    public void getEquipment(String gym_id) {
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = rootRef.collection("admins").document(gym_id)
                 .collection("equipments");

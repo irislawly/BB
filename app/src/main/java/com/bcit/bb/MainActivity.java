@@ -32,12 +32,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main activity that helps user login, authenticate.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
 
+    /**
+     * Runs app.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

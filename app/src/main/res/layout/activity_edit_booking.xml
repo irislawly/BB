@@ -40,15 +40,6 @@
             android:textSize="@dimen/text_size_header"
             android:textStyle="bold"
             android:textColor="@color/textColor"/>
-        <!--
-            <Spinner
-                android:id="@+id/spinner_date"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown" />
-        -->
 
         <Spinner
             android:id="@+id/spinner_time_edit"
@@ -84,7 +75,7 @@
             android:textColor="@color/textColor"
             android:layout_marginBottom="@dimen/inner_frame_layout_padding"/>
 
-        <com.bcit.bb.uiFeatures.MultiSelectionSpinner
+        <com.bcit.bb.features.MultiSelectionSpinner
             android:id="@+id/booking_spinner_equip_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

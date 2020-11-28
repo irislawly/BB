@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.bcit.bb.uiFeatures.DatePickerFragment;
-import com.bcit.bb.uiFeatures.MultiSelectionSpinner;
+import com.bcit.bb.features.DatePickerFragment;
+import com.bcit.bb.features.MultiSelectionSpinner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Acitivity that opens reservation and allows user to edit and update in database.
+ */
 public class EditBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "Debug";
@@ -70,8 +73,8 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             String gym_id = (String) document.getData().get("gymid");
-                            get_Timeslots(gym_id);
-                            get_Equipment(gym_id);
+                            getTimeslots(gym_id);
+                            getEquipment(gym_id);
 
                         } else {
                             Log.d(TAG, "No such document");
@@ -117,7 +120,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                                        int arg2, long arg3) {
                 Spinner spinTime = (Spinner) findViewById(R.id.spinner_time_edit);
                 if (!spinTime.getSelectedItem().toString().isEmpty()) {
-                    capacity_Listener();
+                    capacityListener();
                 }
 
             }
@@ -139,7 +142,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
      * Generate timeslots of a gym's certain day.
      * @param gym_id gym id
      */
-    public void get_Timeslots(String gym_id) {
+    public void getTimeslots(String gym_id) {
 
         DocumentReference docRef = db.collection("admins").document(gym_id);
 
@@ -204,20 +207,35 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
         pm += 12;
 
         ArrayList<String> intervals = new ArrayList<String>();
+        boolean even = true;
+        if(am+pm % 2 != 0)
+            even = false;
+
         for(int i = am ; i <= pm-2 ; i+=2){
+
             String hr = "";
             if(i > 12){
-                if(i == pm-3 && am+pm % 2 != 0 ){
+
+                if(i == pm-3 && !even ){
                     hr = "" + (i - 12) + "pm" + " - " + (i - 9) + "pm";
 
                 }else {
                     hr = "" + (i - 12) + "pm" + " - " + (i - 10) + "pm";
                 }
             }else if(i>10){
-                hr = "" + (i) + "am"  + " - " + (i-10) + "pm";
+                if(!even  && i==12){
+                    hr = "" + (i) + "pm"  + " - " + (i-10) + "pm";
+                }else {
+                    hr = "" + (i) + "am" + " - " + (i - 10) + "pm";
+                }
+            }
 
-            } else{
-                hr = "" + (i) + "am"  + " - " + (i+2) + "am";
+            else{
+                if(!even && i==10){
+                    hr = "" + (i) + "am"  + " - " + (i+2) + "pm";
+                }else {
+                    hr = "" + (i) + "am" + " - " + (i + 2) + "am";
+                }
 
             }
             intervals.add(hr);
@@ -254,8 +272,8 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         String gym_id = (String) document.getData().get("gymid");
-                        get_Timeslots(gym_id);
-                        get_Equipment(gym_id);
+                        getTimeslots(gym_id);
+                        getEquipment(gym_id);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -271,7 +289,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
      * Function to generate gym equipment onto the spinner for user to pick.
      * @param gym_id gym id
      */
-    public void get_Equipment(String gym_id) {
+    public void getEquipment(String gym_id) {
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = rootRef.collection("admins").document(gym_id)
                 .collection("equipments");
@@ -304,7 +322,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
      * Function to generate current capacity / number of other users that have booked the timeslot
      * as well.
      */
-    public void capacity_Listener() {
+    public void capacityListener() {
         db.collection("bookings")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

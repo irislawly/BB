@@ -21,6 +21,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * Edit account acitivity.
+ */
 public class EditAccount extends AppCompatDialogFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference idsRef = db.collection("users");
@@ -29,6 +32,11 @@ public class EditAccount extends AppCompatDialogFragment {
     EditText username_field;
     View view;
 
+    /**
+     * Create dialog.
+     * @param savedInstanceState state
+     * @return dialog
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
