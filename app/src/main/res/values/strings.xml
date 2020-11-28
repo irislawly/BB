@@ -58,7 +58,6 @@
     <string name="choose_time">Choose time:</string>
     <string name="selection_hint">Select up to 4</string>
 
-
     <string name="edit_booking">Edit Booking</string>
     <string name="new_booking">New Booking</string>
     <string name="currentCap">Current Capacity: </string>
@@ -72,6 +71,34 @@
     <string name="edit_booking_cancel">Cancel</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_your_account">YourAccountActivity</string>
+
+    <!-- Policy Activity -->
+    <string-array name="policies">
+        <item>All fitness centre workouts &amp; classes require advanced bookings on the Bookings&amp;Bulking service app, per first-come-first-serve policy.</item>
+        <item>Access to fitness facilities is limited to registered persons.</item>
+        <item>Fitness centre and class capacity is limited per time slot/class to allow for distancing.</item>
+        <item>Spotting, working out in partners/groups, or working in with other members are not allowed at this time.</item>
+        <item>Signs and directions are posted throughout the facility to guide traffic flow and queueing spots.</item>
+        <item>All members will receive a cleaning spray bottle to use during their workout.</item>
+        <item>Members are required to clean their equipment before and after each use.</item>
+        <item>Areas (pods) within the fitness centre free weight &amp; stretching areas will be designated for individual workouts.</item>
+        <item>For fitness classes, individual work out spaces (pods) will be assigned upon entry into the activity space</item>
+        <item>Please arrive no sooner than 10 minutes before your booked workout session, as late arrivals will not be permitted inside.</item>
+        <item>Please have your booking information &amp; valid member ID with you for confirmation\'s purposes.</item>
+        <item>Equipment is booked based on first-come-first-serve policy.</item>
+        <item>In case of equipment conflicts, both parties will be asked to show their booking information. If neither parties can prove for their reservation, both will be asked to dismiss from the designated area.</item>
+        <item>Participants are welcome to bring their own towels and yoga mats, but are not allowed to share equipment with others.</item>
+        <item>Members are encouraged to bring their own towel and personal water bottle.</item>
+        <item>All water fountains are closed. If needed, please refill your water bottle at a tap in a washroom.</item>
+        <item>All members should continue to arrive changed and ready to workout whenever possible.</item>
+        <item>Gym\'s washrooms, change rooms, showers, and workout lockers are available with restrictions and limited capacities.</item>
+        <item>Members are to adhere to all directional signage, time limits and capacity limits in the change areas and showers.</item>
+        <item>Showers have re-opened with limited capacities; guests are encouraged to shower at home when possible.</item>
+        <item>Members must bring their own shower products to use in the shower spaces, no soap nor shampoo will be available.</item>
+        <item>Members must bring their own personal lock for locker use during their workout (locks will not be provided), and are responsible for removing the contents and lock immediately after their activity has concluded.</item>
+        <item>Please stay home if you are not feeling well.</item>
+        <item>No bookings. No bulking.</item>
+    </string-array>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
