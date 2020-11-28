@@ -1,5 +1,5 @@
 # Booking&Bulking
-Team 20 Buff BIT: 
+COMP 3717 3O Team 20 Buff BIT: 
 Iris Law
 Tiffany Gu
 Billy Nguyen
