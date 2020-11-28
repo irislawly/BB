@@ -44,11 +44,16 @@ import java.util.Map;
 
 public class EditBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static final String TAG = "BookingSnippets";
+    private static final String TAG = "Debug";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     TextView booking_date;
+
+    /**
+     * OnCreate function to run app.
+     * @param savedInstanceState state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,7 +69,6 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             String gym_id = (String) document.getData().get("gymid");
                             get_Timeslots(gym_id);
                             get_Equipment(gym_id);
@@ -85,7 +89,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
             booking_date.setText(dateStr);
 
         } else {
-            System.out.println("NOT LOGGED ON");
+            Log.d(TAG, "NOT LOGGED ON");
         }
 
         Button button = findViewById(R.id.booking_add_date_edit);
@@ -101,10 +105,16 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
         Spinner spinner = (Spinner) findViewById(R.id.spinner_time_edit);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            /**
+             * Assigns spinner to value when clicked.
+             * @param arg0 arg0
+             * @param arg1 arg1
+             * @param arg2 arg2
+             * @param arg3 arg3
+             */
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                // TODO Auto-generated method stub
                 Spinner spinTime = (Spinner) findViewById(R.id.spinner_time_edit);
                 if (!spinTime.getSelectedItem().toString().isEmpty()) {
                     capacity_Listener();
@@ -112,17 +122,23 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
 
             }
 
+            /**
+             * Assigns spinner to defualt value when nothing is clicked.
+             * @param arg0 arg0
+             */
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
                 Spinner spinTime = (Spinner) findViewById(R.id.spinner_time_edit);
                 spinTime.setSelection(0);
             }
         });
 
-
     }
 
+    /**
+     * Generate timeslots of a gym's certain day.
+     * @param gym_id gym id
+     */
     public void get_Timeslots(String gym_id) {
 
         DocumentReference docRef = db.collection("admins").document(gym_id);
@@ -166,16 +182,18 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
         });
     }
 
+    /**
+     * Helper function for get_Timeslot to generate 2 hour intervals.
+     * @param group group of date
+     * @return String array of timeslots
+     * @throws ParseException exception
+     */
     public String[] getTimeslotInterval(List<String> group) throws ParseException {
-      //  Intent intent = getIntent();
-      //  int day =  intent.getIntExtra("weekday", 0);
-        TextView d = (TextView) findViewById(R.id.booking_date_textview_edit);
+        TextView d =findViewById(R.id.booking_date_textview_edit);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dt = df.parse(d.getText().toString());
         int day = dt.getDay();
 
-
-        System.out.println("Testing " + group.get(day) + " " + day);
 
         String hours = group.get(day);
         String start = hours.substring(0, hours.indexOf(" "));
@@ -211,7 +229,13 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
 
     }
 
-
+    /**
+     * Sets a new date.
+     * @param view View
+     * @param year year
+     * @param month month
+     * @param dayOfMonth day of month
+     */
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR,year);
@@ -219,7 +243,7 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String currentDateString  = df.format(c.getTime());
-        TextView textView = (TextView) findViewById(R.id.booking_date_textview_edit);
+        TextView textView = findViewById(R.id.booking_date_textview_edit);
         textView.setText(currentDateString);
 
         DocumentReference docRef = db.collection("users").document(currentuser);
@@ -229,7 +253,6 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         String gym_id = (String) document.getData().get("gymid");
                         get_Timeslots(gym_id);
                         get_Equipment(gym_id);
@@ -244,6 +267,10 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
         });
     }
 
+    /**
+     * Function to generate gym equipment onto the spinner for user to pick.
+     * @param gym_id gym id
+     */
     public void get_Equipment(String gym_id) {
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = rootRef.collection("admins").document(gym_id)
@@ -273,6 +300,10 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
 
     }
 
+    /**
+     * Function to generate current capacity / number of other users that have booked the timeslot
+     * as well.
+     */
     public void capacity_Listener() {
         db.collection("bookings")
                 .get()
@@ -307,7 +338,6 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                                         if (document.exists()) {
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                             String gym_id = (String) document.getData().get("gymid");
-                                            //     String gym_id = "adminTest";
                                             DocumentReference adminRef = db.collection("admins").document(gym_id);
                                             adminRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
@@ -324,8 +354,6 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                                                             } else {
                                                                 cap.setText("Current Capacity: " + capacity);
                                                             }
-                                                        } else {
-
                                                         }
                                                     } else {
                                                         Log.d(TAG, "get failed with ", task.getException());
@@ -348,11 +376,19 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                 });
     }
 
+    /**
+     * Cancel activity and redirect back to Booking page.
+     * @param view view
+     */
     public void onNewBookingCancelClick(View view) {
         Intent intent = new Intent(this, BookingActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Readd user reservation to databaes, takes in the data input and checks for validation.
+     * @param view View
+     */
     public void onNewBookingAddClick(View view) {
 
         db.collection("bookings")
@@ -416,7 +452,16 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
                 });
 
     }
-    //udpate
+
+    /**
+     * Writes time slot information to database.
+     * @param date Date
+     * @param timeslot Interval of timeslot
+     * @param equipId equipment id
+     * @param equip equip names
+     * @param id id of user
+     * @param gym gym name
+     */
     public void writeToDatabase(String date, String timeslot, String equipId, String equip, String id, String gym) {
 
         Map<String, Object> reservation = new HashMap<>();
@@ -429,14 +474,13 @@ public class EditBookingActivity extends AppCompatActivity implements DatePicker
 
         Intent intent = getIntent();
         String docId = intent.getStringExtra("id");
-        Log.d(TAG ,  docId);
 
         db.collection("bookings").document(docId)
                 .set(reservation)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                      //  Log.d(TAG,  docId);
+                        Log.d(TAG,  "Successfully read.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

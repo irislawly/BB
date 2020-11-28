@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Google Firebase sign in authentication Sign-in UI.
+     */
     public void createSignInIntent() {
 
         // Choose authentication providers
@@ -62,7 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
-    // [START auth_fui_result]
+    /**
+     * Confirms sign in and redirects to menu page, otherwise user needs to continue making
+     * account.
+     * @param requestCode code
+     * @param resultCode code
+     * @param data data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -82,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //checks if user in database, if not adds info to it.
+    /**
+     * Creates users account or validates that user is in database.
+     */
     public void userAuthenicate(){
         db.collection("users")
                 .get()
@@ -106,21 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void read(){db.collection("users")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.getData());
-                        }
-                    } else {
-                        Log.w(TAG, "Error getting documents.", task.getException());
-                    }
-                }
-            });
-    }
+    /**
+     * Adds new user to database.
+     * @param name name
+     * @param email email
+     * @param uid user id
+     */
     public void addUser(String name, String email, String uid) {
 
         // Create a new user with a first and last name, email, default gym and gymid

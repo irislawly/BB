@@ -41,22 +41,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * Activity for Booking page, has Calendar, buttons, and adapters to display user's reserved info.
+ */
 public class BookingActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference idsRef = db.collection("bookings");
-    String TAG = "Debug Iris";
+    String TAG = "Debug ";
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
- private FloatingActionButton addButt;
+    private FloatingActionButton addButt;
     private ArrayList<BookingTemplate> listItems;
     private CompactCalendarView compactCalendarView;
     private TextView calMonth;
 
-    String[] gymEquipment = new String[]{"Treadmill", "Rowing machine", "Dumbbells", "Leg press", "Pullup bar",
-            "Chess press", "Bench press", "Pullup bar", "Lat pulldown"};
-
+    /**
+     * Runs app.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,6 @@ public class BookingActivity extends AppCompatActivity {
         String yearString = " " + (d.getYear()+1900);
         calMonth = findViewById(R.id.month_title);
         calMonth.setText(monthString.substring(0,3) + yearString);
-        // to post all user's timeslot current  setQueue();
         highlightCalendarEvents();
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -104,17 +105,15 @@ public class BookingActivity extends AppCompatActivity {
                                     String temp_id = document.getId();
                                     Log.d("debug", temp_id);
                                     String temp_equip = (String) document.getData().get("equip");
-                                    Log.d("debug", (String) document.getData().get("equip"));
 
                                     String temp_date = (String) document.getData().get("date");
-                                    Log.d("debug", (String) document.getData().get("date"));
 
                                     String temp_timeslot = (String) document.getData().get("timeslot");
-                                    Log.d("debug", (String) document.getData().get("timeslot"));
 
                                     String temp_gymname = (String) document.getData().get("gymname");
                                     String temp_gymid = (String) document.getData().get("gymid");
-                                    BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id, temp_gymname, temp_gymid);
+                                    BookingTemplate book123 = new BookingTemplate(temp_equip,
+                                            temp_timeslot, temp_date, temp_id, temp_gymname, temp_gymid);
                                     listItems.add(book123);
                                     Log.d("debug", document.getId() + " => " + document.getData());
                                 } else {
@@ -133,17 +132,11 @@ public class BookingActivity extends AppCompatActivity {
                     adapter = new BookingAdapter(listItems, getApplicationContext());
                     recyclerView.setAdapter(adapter);
                     recyclerView.setVisibility(View.VISIBLE);
-                    Log.d(TAG, "Day was clicked: " + dateClicked + " with Data: " + events);
-              //      Button addButt = findViewById(R.id.buttonAdd);
                     addButt.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             Intent intent = new Intent(getApplicationContext(), NewBookingActivity.class);
                             intent.putExtra("date", dateClicked);
                             intent.putExtra("weekday", dateClicked.getDay());
-
-                            //   String d = " ";
-                            String s = " " + dateClicked.getDay();
-                            Log.d(TAG, s);
                             startActivity(intent);
                         }
                     });
@@ -162,11 +155,19 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Event handler for add booking click. Sends user to NewBookingActivity.
+     * @param view View
+     */
     public void onAddBookingClick(View view) {
         Toast.makeText(getApplicationContext(), "Choose a date on calendar."
                 , Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Highlights days that have a reservation on calendar with a DOT.
+     */
     public void highlightCalendarEvents() {
 
         db.collection("bookings")
@@ -180,8 +181,6 @@ public class BookingActivity extends AppCompatActivity {
 
                                 String temp_id = document.getId();
                                 String temp_date = (String) document.getData().get("date");
-                                Log.d(TAG, (String) document.getData().get("date"));
-
                                 Log.d("TAG", document.getId() + " => " + document.getData());
 
                                 long miliSecsDate = milliseconds(temp_date);
@@ -197,6 +196,10 @@ public class BookingActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Event handler to change calendar to the previous month.
+     * @param view View
+     */
     public void prevMonthClick(View view) {
         compactCalendarView.scrollLeft();
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
@@ -206,6 +209,10 @@ public class BookingActivity extends AppCompatActivity {
         calMonth.setText(monthString.substring(0,3) + yearString);
     }
 
+    /**
+     * Event handler to change calendar to the next month.
+     * @param view View
+     */
     public void nextMonthClick(View view) {
         compactCalendarView.scrollRight();
         Date d = compactCalendarView.getFirstDayOfCurrentMonth();
@@ -215,23 +222,29 @@ public class BookingActivity extends AppCompatActivity {
         calMonth.setText(monthString.substring(0,3) + yearString);
     }
 
+    /**
+     * Converts to milliseconds for calendar conversions.
+     * @param date Date
+     * @return long milliseconds
+     */
     public long milliseconds(String date) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date mDate = sdf.parse(date);
             long timeInMilliseconds = mDate.getTime();
-            System.out.println("Date in milli :: " + timeInMilliseconds);
             return timeInMilliseconds;
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return 0;
     }
 
-    //need to edit
+    /**
+     * Event handler to edit user's booking and sends to edit page.
+     * @param view View
+     */
     public void onEditBookingClick(View view) {
         Intent intent = new Intent(this, EditBookingActivity.class);
         TextView timeslotID = findViewById(R.id.timeslotID);
@@ -244,6 +257,10 @@ public class BookingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Event handler to delete user's booking.
+     * @param view View
+     */
     public void onDeleteBookingClick(View view) {
         TextView timeslotID = findViewById(R.id.timeslotID);
         String idStr = timeslotID.getText().toString();
@@ -253,18 +270,21 @@ public class BookingActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("debug", "DocumentSnapshot successfully deleted!");
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("debug", "Error deleting document", e);
+                        Log.w(TAG, "Error deleting document", e);
                     }
                 });
         alert();
     }
 
+    /**
+     * Alert message for deleting booking.
+     */
     public void alert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -286,48 +306,6 @@ public class BookingActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    public void setQueue() {
-        listItems = new ArrayList<>();
-        Log.d("debug", "hi");
-
-        db.collection("bookings")
-                .whereEqualTo("id", currentuser)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                String temp_id = document.getId();
-                                Log.d("debug", temp_id);
-                                String temp_equip = (String) document.getData().get("equip");
-                                Log.d("debug", (String) document.getData().get("equip"));
-
-                                String temp_date = (String) document.getData().get("date");
-                                Log.d("debug", (String) document.getData().get("date"));
-
-                                String temp_timeslot = (String) document.getData().get("timeslot");
-                                Log.d("debug", (String) document.getData().get("timeslot"));
-                                String temp_gymname = (String) document.getData().get("gymname");
-
-                                String temp_gymid = (String) document.getData().get("gymid");
-                                BookingTemplate book123 = new BookingTemplate(temp_equip, temp_timeslot, temp_date, temp_id, temp_gymname, temp_gymid );
-                                listItems.add(book123);
-                                Log.d("debug", document.getId() + " => " + document.getData());
-                            }
-                            adapter = new BookingAdapter(listItems, getApplicationContext());
-                            recyclerView.setAdapter(adapter);
-                            recyclerView.setVisibility(View.VISIBLE);
-                        } else {
-                            Log.d("debug", "Error getting documents: ", task.getException());
-                            recyclerView.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
-
     }
 
 }

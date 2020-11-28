@@ -46,12 +46,14 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_information);
         get_Gym_Id();
         get_Gym_Choice();
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+    /**
+     * Gets user's selected gym choice and generate info.
+     */
     public void get_Gym_Choice(){
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -61,7 +63,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         String gym_choice = (String) document.getData().get("gymchoice");
                         gymname.setText(gym_choice);
 
@@ -75,6 +76,9 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         });
     }
 
+    /**
+     * Gets the gym id of user's selected gym.
+     */
     public void get_Gym_Id(){
 
         DocumentReference docRef = db.collection("users").document(currentuser);
@@ -84,7 +88,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         String gym_id = (String) document.getData().get("gymid");
                         get_Gym_Information(gym_id);
 
@@ -99,6 +102,10 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
     }
 
+    /**
+     * Gets gym information such as hours, address, capacity, etc.
+     * @param gym_id gym id
+     */
     public void get_Gym_Information(String gym_id){
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
@@ -151,8 +158,10 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
     }
 
-    public void get_address(){
-
+    /**
+     * Gets address for Google maps.
+     */
+    public void get_Address(){
         DocumentReference docRef = db.collection("users").document(currentuser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -160,9 +169,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         String gym_id = (String) document.getData().get("gymid");
-                        get_Address(gym_id);
+                        find_Address(gym_id);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -174,7 +182,12 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         });
 
     }
-    public void get_Address(String gym_id){
+
+    /**
+     * Finds address with gym_id and looks it up for google maps.
+     * @param gym_id gym id
+     */
+    public void find_Address(String gym_id){
         DocumentReference docRef = db.collection("admins").document(gym_id);
         docRef.get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -187,9 +200,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                         String city = info.get("city").toString();
                         String gymname = info.get("gymname").toString();
 
-
-
-                        Log.d(TAG, "street " + street);
                         String add= street + " " + city;
                         Geocoder coder = new Geocoder(getApplicationContext());
                         List<Address> address;
@@ -237,7 +247,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        get_address();
+        get_Address();
 
     }
 

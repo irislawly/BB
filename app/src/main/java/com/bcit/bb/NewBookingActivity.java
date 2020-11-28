@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,12 +40,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity for creating a new gym booking timeslot, uses Calendars, spinners, multispinner, retrieving
+ * and writing to Firestore.
+ */
 public class NewBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "BookingSnippets";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     TextView booking_date;
+    /**
+     * OnCreate function to run app.
+     * @param savedInstanceState state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +107,10 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
+    /**
+     * Function to generate current capacity / number of other users that have booked the timeslot
+     * as well.
+     */
     public void capacity_Listener() {
         db.collection("bookings")
                 .get()
@@ -170,6 +183,9 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
                 });
     }
 
+    /**
+     * Function to get gym name and set in TextView.
+     */
     public void get_Gym() {
 
         DocumentReference docRef = db.collection("users").document(currentuser);
@@ -195,6 +211,10 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
+    /**
+     * Generate timeslots of a gym's certain day.
+     * @param gym_id gym id
+     */
     public void get_Timeslots(String gym_id) {
 
         DocumentReference docRef = db.collection("admins").document(gym_id);
@@ -233,6 +253,12 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
         });
     }
 
+    /**
+     * Helper function for get_Timeslot to generate 2 hour intervals.
+     * @param group group of date
+     * @return String array of timeslots
+     * @throws ParseException exception
+     */
     public String[] getTimeslotInterval(List<String> group){
         Intent intent = getIntent();
         int day =  intent.getIntExtra("weekday", 0);
@@ -271,6 +297,13 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
+    /**
+     * Sets a new date.
+     * @param view View
+     * @param year year
+     * @param month month
+     * @param dayOfMonth day of month
+     */
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
@@ -282,6 +315,10 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
         booking_date.setText(currentDateString);
     }
 
+    /**
+     * Function to generate gym equipment onto the spinner for user to pick.
+     * @param gym_id gym id
+     */
     public void get_Equipment(String gym_id) {
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = rootRef.collection("admins").document(gym_id)
@@ -311,11 +348,19 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
+    /**
+     * Cancel activity and redirect back to Booking page.
+     * @param view view
+     */
     public void onNewBookingCancelClick(View view) {
         Intent intent = new Intent(this, BookingActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Adds user reservation to databates, takes in the data input and checks for validation.
+     * @param view View
+     */
     public void onNewBookingAddClick(View view) {
 
         db.collection("bookings")
@@ -382,6 +427,16 @@ public class NewBookingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
+
+    /**
+     * Writes time slot information to database.
+     * @param date Date
+     * @param timeslot Interval of timeslot
+     * @param equipId equipment id
+     * @param equip equip names
+     * @param id id of user
+     * @param gym gym name
+     */
     public void writeToDatabase(String date, String timeslot, String equipId, String equip, String id, String gym) {
         Map<String, Object> reservation = new HashMap<>();
         reservation.put("equip", equip);

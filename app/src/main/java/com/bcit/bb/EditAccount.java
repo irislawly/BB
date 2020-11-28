@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EditAccount extends AppCompatDialogFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference idsRef = db.collection("users");
-    String TAG = "debug";
+    String TAG = "Debug";
     String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     EditText username_field;
     View view;
