@@ -99,9 +99,7 @@
         <item>Please stay home if you are not feeling well.</item>
         <item>No bookings. No bulking.</item>
     </string-array>
-    <string name="policity_title">"Please note there are currently additional safety protocols in place" +
-                        " as we reopen during the COVID-19 pandemic. Where these rules differ from" +
-                        " what’s listed below, the "</string>
+    <string name="policity_title">"Please note there are currently additional safety protocols in place as we reopen during the COVID-19 pandemic. Where these rules differ from what’s listed below, the "</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
