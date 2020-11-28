@@ -156,7 +156,7 @@ public class YourAccountActivity extends AppCompatDialogFragment {
     public void onWriteToDatabase(View v) {
         Spinner spin = view.findViewById(R.id.gym_choice_spinner);
         String gymchoice = spin.getSelectedItem().toString();
-        Toast toast =Toast. makeText(getContext(),"Your gym has been changed to" + gymchoice, Toast. LENGTH_SHORT);
+        Toast toast =Toast. makeText(getContext(),"Your gym has been changed to " + gymchoice, Toast. LENGTH_SHORT);
         toast.show();
         db.collection("admins")
                 .whereEqualTo("gymname", gymchoice)
