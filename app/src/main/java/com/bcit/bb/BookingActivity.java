@@ -308,4 +308,13 @@ public class BookingActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Adds settings to device emulator's back button.
+     */
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent(this, MenuActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 }

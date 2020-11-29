@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -90,5 +91,15 @@ public class PolicyActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    /**
+     * Adds settings to device emulator's back button.
+     */
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent(this, MenuActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 }

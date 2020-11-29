@@ -3,6 +3,7 @@ package com.bcit.bb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -233,7 +234,15 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
     }
 
-
+    /**
+     * Adds settings to device emulator's back button.
+     */
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent(this, MenuActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 
     /**
      * Manipulates the map once available.

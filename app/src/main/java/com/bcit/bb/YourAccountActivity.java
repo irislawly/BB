@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -222,5 +223,6 @@ public class YourAccountActivity extends AppCompatDialogFragment {
 
 
     }
+
 
 }
